@@ -14,7 +14,7 @@ const Product = (sequelize, { INTEGER, STRING, DECIMAL }) => {
       },
       price: {
         type: DECIMAL(4,2),
-        field: "total_price",
+        field: "price",
         allowNull: false,
       },
       urlImage: {

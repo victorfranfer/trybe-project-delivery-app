@@ -4,7 +4,7 @@ module.exports = {
   async up(queryInterface, { INTEGER, STRING, DECIMAL, DATE }) {
     await queryInterface.createTable("sales_products", {
       saleId: {
-        filed: "sale_id",
+        field: "sale_id",
         allowNull: false,
         primaryKey: true,
         type: INTEGER,
@@ -16,7 +16,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       productId: {
-        filed: "product_id",
+        field: "product_id",
         allowNull: false,
         primaryKey: true,
         type: INTEGER,

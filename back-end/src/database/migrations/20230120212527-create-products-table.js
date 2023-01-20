@@ -15,7 +15,7 @@ module.exports = {
       },
       price: {
         type: DECIMAL(4,2),
-        field: "total_price",
+        field: "price",
         allowNull: false,
       },
       urlImage: {
