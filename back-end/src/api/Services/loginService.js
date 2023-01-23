@@ -1,5 +1,7 @@
 import User from '../../database/models/User';
 import { compare } from 'bcryptjs';
+import { createToken } from '../Utils/jwtUtils';
+
 
 class loginService {
   static async login({ email, password }) {
@@ -27,6 +29,12 @@ class loginService {
         message: 'Incorrect email or password'
       }))
     }
+
+    const { password: _, ...userWithoutPassword } = user.dataValues;
+
+    const token = createToken(userWithoutPassword);
+
+    return { token };
   }
 }
 
