@@ -1,14 +1,8 @@
-class ErrorHandler {
-  static handle(
-    error,
-    _req,
-    res,
-    next,
-  ) {
-    const errObj = JSON.parse(error.message);
-    res.status(errObj.status).json({ message: errObj.message });
-    next();
-  }
-}
+const error = (err, _req, res, _next) => {
+  const status = err.status || 500;
+  const message = err.message || 'Erro inesperado. Por favor, tente mais tarde';
 
-module.exports = ErrorHandler;
+  return res.status(status).json({ message });
+};
+
+module.exports = error;
