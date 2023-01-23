@@ -1,6 +1,6 @@
-import User from '../../database/models/User';
-import { compare } from 'bcryptjs';
-import { createToken } from '../Utils/jwtUtils';
+const User = require('../../database/models/User');
+const { compare } = require('bcryptjs');
+const { createToken } = require('../Utils/jwtUtils');
 
 
 class loginService {

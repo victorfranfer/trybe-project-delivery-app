@@ -1,4 +1,4 @@
-import { JwtPayload, verify, sign } from 'jsonwebtoken';
+const { JwtPayload, verify, sign } = require('jsonwebtoken');
 
 const jwtSecret = 'secret_key';
 

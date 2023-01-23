@@ -1,4 +1,4 @@
-import loginService from '../Services/loginService';
+const loginService = require('../Services/loginService');
 
 class loginController {
   static async login(req, res) {
@@ -10,4 +10,4 @@ class loginController {
   }
 }
 
-export default loginController;
+module.exports = loginController;

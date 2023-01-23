@@ -1,6 +1,6 @@
-import { Router } from 'express';
+const { Router } = require('express');
 // import tokenValidation from '../middlewares/tokenValidate';
-import loginController from '../controller/loginController';
+const loginController = require('../Controller/loginController');
 
 const router = Router();
 

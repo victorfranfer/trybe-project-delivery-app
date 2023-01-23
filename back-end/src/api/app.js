@@ -1,6 +1,6 @@
 const express = require('express');
-import router from '../api/Routes/index';
-import error from './Middlewares/errorHandler';
+const router = require('../api/Routes');
+const error = require('./Middlewares/errorHandler');
 
 const app = express();
 
