@@ -7,8 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <p>Ta dando tudo errado</p>
-        <Route component={ Register } path="/register" exact />
+        <Route path="/register" exact component={ Register } />
       </Switch>
     </BrowserRouter>
   );
