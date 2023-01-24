@@ -57,9 +57,9 @@ export default function Register() {
           />
         </label>
         <button
-          disabled={ !(name.length > Number('12')
+          disabled={ !(name.length >= Number('12')
             && validEmail
-            && password.length > Number('6')) }
+            && password.length >= Number('6')) }
           type="button"
           data-testid="common_register__button-register"
           onClick={ HandleClick }
