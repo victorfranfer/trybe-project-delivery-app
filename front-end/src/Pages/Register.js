@@ -7,6 +7,9 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [requestError, setRequestError] = useState(false);
 
+  const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
+  const validEmail = emailRegex.test(email);
+
   async function HandleClick() {
     try {
       await requestRegister('/register', {
@@ -54,6 +57,9 @@ export default function Register() {
           />
         </label>
         <button
+          disabled={ !(name.length > Number('12')
+            && validEmail
+            && password.length > Number('6')) }
           type="button"
           data-testid="common_register__button-register"
           onClick={ HandleClick }
