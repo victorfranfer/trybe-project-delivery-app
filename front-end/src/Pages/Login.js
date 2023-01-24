@@ -19,6 +19,7 @@ function Login() {
         email,
         password,
       });
+      navigate.push('/customer/products');
     } catch (error) {
       console.log(error);
       setLoginError(true);
