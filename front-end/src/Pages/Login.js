@@ -12,7 +12,17 @@ function Login() {
 
   const navigate = useHistory();
 
-  console.log(setLoginError);
+  async function HandleClick(e) {
+    e.preventDefault();
+    try {
+      await requestLogin('/login', {
+        email,
+        password,
+      });
+    } catch (error) {
+      setLoginError(true);
+    }
+  }
 
   const goToRegister = () => {
     navigate.push('/register');
@@ -41,7 +51,7 @@ function Login() {
         <img src="" alt="Logo do app" />
       </div>
       <div>
-        <form>
+        <form onSubmit={ HandleClick }>
           <label htmlFor="email">
             Login:
             <input
@@ -81,7 +91,7 @@ function Login() {
         loginError && (
           <div>
             <span data-testid="common_login__element-invalid-email">
-              Elemento oculto Mensagens de erro
+              Falha ao fazer login!
             </span>
           </div>
         )
