@@ -1,15 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import Redirect from './Pages/Redirect';
+import Login from './Pages/Login';
 import Register from './Pages/Register';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/register" exact component={ Register } />
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route path="/register" exact component={ Register } />
+      <Route exact path="/" component={ Redirect } />
+      <Route path="/login" component={ Login } />
+    </Switch>
   );
 }
 
