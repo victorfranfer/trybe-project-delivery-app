@@ -12,7 +12,7 @@ export default function Register() {
   const validEmail = emailRegex.test(email);
   const history = useHistory();
 
-  function buttonDisable({target}) {
+  function buttonDisable({ target }) {
     setEmail(target.value);
     setRequestError(false);
   }
@@ -68,7 +68,7 @@ export default function Register() {
           disabled={ !(name.length >= Number('12')
             && validEmail
             && password.length >= Number('6'))
-            || requestError}
+            || requestError }
           type="button"
           data-testid="common_register__button-register"
           onClick={ HandleClick }

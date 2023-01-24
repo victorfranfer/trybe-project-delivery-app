@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs');
 const { JwtPayload, verify, sign } = require('jsonwebtoken');
 const md5 = require('md5');
 
@@ -14,7 +13,6 @@ const createToken = (payload) => {
 
   return token;
 };
-
 // export const validateToken = (token) => {
 //   try {
 //     const data = verify(token, jwtSecret);
@@ -26,11 +24,7 @@ const createToken = (payload) => {
 //     return null;
 //   }
 // };
-
-
-const hashPassword = (password) => {
-  return md5(password);
-}
+const hashPassword = (password) => md5(password);
 
 module.exports = {
   hashPassword,
