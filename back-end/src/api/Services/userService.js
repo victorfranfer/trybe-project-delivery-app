@@ -33,7 +33,7 @@ const createUser = async (user) => {
   
   if (userAlreadyExists) {
     const err = new Error();
-    err.status = 404;
+    err.status = 409;
     err.message = 'User already exists';
     throw err;
   }

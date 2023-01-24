@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { requestRegister } from '../Services/Request';
 
 export default function Register() {
@@ -9,6 +10,12 @@ export default function Register() {
 
   const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
   const validEmail = emailRegex.test(email);
+  const history = useHistory();
+
+  function buttonDisable({target}) {
+    setEmail(target.value);
+    setRequestError(false);
+  }
 
   async function HandleClick() {
     try {
@@ -17,6 +24,7 @@ export default function Register() {
         password,
         name,
       });
+      history.push('/customer/products');
     } catch (error) {
       setRequestError(true);
     }
@@ -43,7 +51,7 @@ export default function Register() {
             data-testid="common_register__input-email"
             id="input-email"
             value={ email }
-            onChange={ ({ target }) => setEmail(target.value) }
+            onChange={ buttonDisable }
           />
         </label>
         <label htmlFor="input-password">
@@ -59,7 +67,8 @@ export default function Register() {
         <button
           disabled={ !(name.length >= Number('12')
             && validEmail
-            && password.length >= Number('6')) }
+            && password.length >= Number('6'))
+            || requestError}
           type="button"
           data-testid="common_register__button-register"
           onClick={ HandleClick }

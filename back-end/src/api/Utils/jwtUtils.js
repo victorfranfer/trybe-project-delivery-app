@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { JwtPayload, verify, sign } = require('jsonwebtoken');
+const md5 = require('md5');
 
 const jwtSecret = 'secret_key';
 
@@ -26,11 +27,10 @@ const createToken = (payload) => {
 //   }
 // };
 
+
 const hashPassword = (password) => {
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt);
-  return hash;
-};
+  return md5(password);
+}
 
 module.exports = {
   hashPassword,
