@@ -26,20 +26,27 @@ const validateFields = (user) => {
 };
 
 const createUser = async (user) => {
+  const editUser = { ...user };
+  
   validateFields(user);
-  const userAlreadyExists = getUserByEmail(user.email);
+  const userAlreadyExists = await getUserByEmail(user.email);
+  
   if (userAlreadyExists) {
     const err = new Error();
-    err.status = 400;
+    err.status = 404;
     err.message = 'User already exists';
     throw err;
   }
 
-  const hash = hashPassword(user.password);
-  const userHash = { ...user, password: hash };
+  if (!user.role) {
+    editUser.role = 'admin';
+  }
 
-  const newUser = await User.create(userHash);
-  return newUser;
+  const hash = hashPassword(user.password);
+  editUser.password = hash;
+
+  const newUser = await User.create(editUser);
+  return { token: newUser.password, role: newUser.role };
 };
 
 module.exports = {
