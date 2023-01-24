@@ -12,6 +12,8 @@ function Login() {
 
   const navigate = useHistory();
 
+  console.log(setLoginError);
+
   const goToRegister = () => {
     navigate.push('/register');
   };
