@@ -1,5 +1,5 @@
 const { compare } = require('bcryptjs');
-const User = require('../../database/models/User');
+const { User } = require('../../database/models');
 const { createToken } = require('../Utils/jwtUtils');
 
 class loginService {
