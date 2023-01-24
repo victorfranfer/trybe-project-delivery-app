@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+// import { LoginContext } from '../Context/loginContext';
 
 function Login() {
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
+
   const [loginError, setLoginError] = useState(false);
+
   const navigate = useHistory();
 
   const goToRegister = () => {
     navigate.push('/register');
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
   };
 
   return (
@@ -15,13 +27,14 @@ function Login() {
         <img src="" alt="Logo do app" />
       </div>
       <div>
-        <form onSubmit={  }>
+        <form>
           <label htmlFor="email">
             Login:
             <input
               type="email"
               name="email"
               data-testid="common_login__input-email"
+              onChange={ handleChange }
             />
           </label>
           <label htmlFor="senha">
@@ -30,6 +43,7 @@ function Login() {
               type="password"
               name="senha"
               data-testid="common_login__input-password"
+              onChange={ handleChange }
             />
           </label>
 
