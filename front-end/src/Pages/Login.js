@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 // import { LoginContext } from '../Context/loginContext';
 
@@ -7,8 +7,8 @@ function Login() {
     email: '',
     password: '',
   });
-
   const [loginError, setLoginError] = useState(false);
+  const [disable, setDisable] = useState(true);
 
   const navigate = useHistory();
 
@@ -20,6 +20,18 @@ function Login() {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
+
+  useEffect(() => {
+    const handleEnableButton = () => {
+      const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
+      const minLengthPassword = 6;
+      if (data.password.length >= minLengthPassword
+        && emailRegex.test(data.email)) setDisable(false);
+      else setDisable(true);
+    };
+
+    handleEnableButton();
+  }, [data]);
 
   return (
     <div>
@@ -37,7 +49,7 @@ function Login() {
               onChange={ handleChange }
             />
           </label>
-          <label htmlFor="senha">
+          <label htmlFor="password">
             Senha
             <input
               type="password"
@@ -47,7 +59,11 @@ function Login() {
             />
           </label>
 
-          <button type="submit" data-testid="common_login__button-login">
+          <button
+            type="submit"
+            data-testid="common_login__button-login"
+            disabled={ disable }
+          >
             LOGIN
           </button>
           <button
