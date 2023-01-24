@@ -41,7 +41,7 @@ function Login() {
             Senha
             <input
               type="password"
-              name="senha"
+              name="password"
               data-testid="common_login__input-password"
               onChange={ handleChange }
             />
