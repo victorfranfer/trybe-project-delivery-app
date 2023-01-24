@@ -59,7 +59,7 @@ const Sale = (sequelize, { INTEGER, STRING, DECIMAL, DATE }) => {
     });
     Sale.belongsTo(models.User, {
       foreignKey: "seller_id",
-      as: "user",
+      as: "seller",
     });
   };
   return Sale;
