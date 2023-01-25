@@ -1,4 +1,4 @@
-const { JwtPayload, verify, sign } = require('jsonwebtoken');
+const { sign } = require('jsonwebtoken');
 const md5 = require('md5');
 
 const jwtSecret = 'secret_key';
