@@ -6,7 +6,7 @@ class loginController {
 
     const result = await loginService(login);
 
-    return res.status(200).json({ token: result.token });
+    return res.status(200).json(result);
   }
 }
 
