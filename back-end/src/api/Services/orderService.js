@@ -5,6 +5,15 @@ const { Sale }= require("../../database/models")
     return salesList;
   }
 
+  const getAllBySellerId = async (sellerId) => {
+    const salesListBySellerId = await Sale.execute(
+      'SELECT * FROM Sale WHERE id = ?',
+      [sellerId]
+    );
+    return salesListBySellerId;
+  }
+
 module.exports = {
   getAll,
+  getAllBySellerId,
 }

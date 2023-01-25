@@ -4,6 +4,7 @@ import Redirect from './Pages/Redirect';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Products from './Pages/Products';
+import Orders from './Pages/Orders';
 import { AppContext } from './Context/provider';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
+      <Route exact path="/seller/orders" component={ Orders } />
     </Switch>
   );
 }
