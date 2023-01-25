@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function sellerHeader() {
+export default function SellerHeader() {
   return (
     <nav>
       <Link

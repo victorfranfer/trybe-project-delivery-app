@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { requestOrders } from '../Services/Request';
 
-export default function ordersCard() {
+export default function OrdersCard() {
   const [ordersList, setOrdersList] = useState([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const orders = await requestProducts('/orders');
-      setProductsList(orders);
+      const orders = await requestOrders('/orders');
+      setOrdersList(orders);
     };
     fetchOrders();
   }, []);
@@ -26,25 +26,15 @@ export default function ordersCard() {
             <p data-testid={ `seller_orders__element-delivery-status-${order.id}` }>
               { order.status }
             </p>
-            <div className="quantity-buttons">
-              <button
-                type="button"
-                datatest-id={ `customer_products__button-card-rm-item-${product.id}` }
-              >
-                -
-              </button>
-              <span
-                data-testid={ `customer_products__input-card-quantity-${product.id}` }
-              >
-                quantidade
-              </span>
-              <button
-                type="button"
-                datatest-id={ `customer_products__button-card-add-item-${product.id}` }
-              >
-                +
-              </button>
-            </div>
+            <p data-testid={ `seller_order__element-order-date-${order.id}` }>
+              { order.saleDate }
+            </p>
+            <p data-testid={ `seller_orders__element-card-price-${order.id}` }>
+              { order.totalPrice }
+            </p>
+            <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
+              { order.deliveryAddress }
+            </p>
           </div>
         ))
       }
