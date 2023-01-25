@@ -1,9 +1,9 @@
-if (!JSON.parse(localStorage.getItem('userInfo'))) {
-  localStorage.setItem('userInfo', JSON.stringify({}));
+if (!JSON.parse(localStorage.getItem('user'))) {
+  localStorage.setItem('user', JSON.stringify({}));
 }
 
 const saveUserInfo = (payload) => {
-  localStorage.setItem('userInfo', JSON.stringify(payload));
+  localStorage.setItem('user', JSON.stringify(payload));
 };
 
 module.exports = {

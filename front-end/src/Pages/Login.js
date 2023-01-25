@@ -12,11 +12,16 @@ function Login() {
 
   const saveInfoAndRedirect = (userInfo) => {
     const { role } = userInfo;
+
     saveUserInfo(userInfo);
 
-    return role === 'administrator'
-      ? navigate.push('/admin/manage')
-      : navigate.push('/customer/products');
+    const path = {
+      customer: '/customer/products',
+      administrator: '/admin/manage',
+      seller: '/seller/orders',
+    };
+
+    return navigate.push(path[role]);
   };
 
   async function HandleClick() {
