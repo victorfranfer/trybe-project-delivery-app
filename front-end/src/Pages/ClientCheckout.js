@@ -25,38 +25,44 @@ function ClientCheckout() {
           {cart.map((item, index) => (
             <tr key={ `element-table-key-${index}` }>
               <td
-                data-testid={ `
-                customer_checkout__element-order-table-item-number-${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${index}`
+                }
               >
                 {index + 1}
               </td>
               <td
-                data-testid={ `
-                customer_checkout__element-order-table-name-${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-name-${index}`
+                }
               >
                 {item.description}
               </td>
               <td
-                data-testid={ `
-                customer_checkout__element-order-table-quantity-${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-quantity-${index}`
+                }
               >
                 {item.quantity}
               </td>
               <td
-                data-testid={ `
-                customer_checkout__element-order-table-unit-price-${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
               >
                 {item.price}
               </td>
               <td
-                data-testid={ `
-                customer_checkout__element-order-table-sub-total-${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
               >
                 {item.totalValue}
               </td>
               <td
-                data-testid={ `
-                customer_checkout__element-order-table-remove-${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-remove-${index}`
+                }
               >
                 <button type="button">Remover</button>
               </td>
