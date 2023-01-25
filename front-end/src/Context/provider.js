@@ -13,12 +13,12 @@ function ProviderContext({ children }) {
   const [role, setRole] = useState(DEFAULT_VALUE.role);
 
   const contextValue = useMemo(
-    {
+    () => ({
       name,
       setName,
       role,
       setRole,
-    },
+    }),
     [name, role],
   );
 
