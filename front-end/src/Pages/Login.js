@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestLogin } from '../Services/Request';
+import { saveUserInfo } from '../Services/Storage';
 
 function Login() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -9,6 +10,15 @@ function Login() {
 
   const navigate = useHistory();
 
+  const saveInfoAndRedirect = (userInfo) => {
+    const { role } = userInfo;
+    saveUserInfo(userInfo);
+
+    return role === 'administrator'
+      ? navigate.push('/admin/manage')
+      : navigate.push('/customer/products');
+  };
+
   async function HandleClick() {
     const { email, password } = data;
     try {
@@ -16,8 +26,7 @@ function Login() {
         '/login',
         { email, password },
       );
-      console.log(userWithoutId);
-      navigate.push('/customer/products');
+      saveInfoAndRedirect(userWithoutId);
     } catch (error) {
       setLoginError(true);
     }

@@ -39,7 +39,7 @@ const createUser = async (user) => {
   }
 
   if (!user.role) {
-    editUser.role = 'admin';
+    editUser.role = 'administrator';
   }
 
   const hash = hashPassword(user.password);
