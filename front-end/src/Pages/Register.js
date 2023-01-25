@@ -8,7 +8,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [requestError, setRequestError] = useState(false);
 
-  const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
+  const emailRegex = /^[a-z0-9._-]+@[a-z0-9]+\.[a-z]/i;
   const validEmail = emailRegex.test(email);
   const history = useHistory();
 
