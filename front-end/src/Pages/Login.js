@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import { LoginContext } from '../Context/loginContext';
+import { requestLogin } from '../Services/Request';
 
 function Login() {
   const [data, setData] = useState({
@@ -12,7 +12,19 @@ function Login() {
 
   const navigate = useHistory();
 
-  console.log(setLoginError);
+  async function HandleClick() {
+    const { email, password } = data;
+    try {
+      await requestLogin('/login', {
+        email,
+        password,
+      });
+      navigate.push('/customer/products');
+    } catch (error) {
+      console.log(error);
+      setLoginError(true);
+    }
+  }
 
   const goToRegister = () => {
     navigate.push('/register');
@@ -25,7 +37,7 @@ function Login() {
 
   useEffect(() => {
     const handleEnableButton = () => {
-      const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
+      const emailRegex = /^[a-z0-9._-]+@[a-z0-9]+\.[a-z]/i;
       const minLengthPassword = 6;
       if (data.password.length >= minLengthPassword
         && emailRegex.test(data.email)) setDisable(false);
@@ -62,9 +74,10 @@ function Login() {
           </label>
 
           <button
-            type="submit"
+            type="button"
             data-testid="common_login__button-login"
             disabled={ disable }
+            onClick={ HandleClick }
           >
             LOGIN
           </button>
@@ -81,7 +94,7 @@ function Login() {
         loginError && (
           <div>
             <span data-testid="common_login__element-invalid-email">
-              Elemento oculto Mensagens de erro
+              Falha ao fazer login!
             </span>
           </div>
         )
