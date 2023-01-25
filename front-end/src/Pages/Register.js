@@ -64,17 +64,18 @@ export default function Register() {
             onChange={ ({ target }) => setPassword(target.value) }
           />
         </label>
-        <button
-          disabled={ !(name.length >= Number('12')
-            && validEmail
-            && password.length >= Number('6'))
-            || requestError }
-          type="button"
-          data-testid="common_register__button-register"
-          onClick={ HandleClick }
-        >
-          CADASTRAR
-        </button>
+        <div>
+          <button
+            disabled={ !(name.length >= Number('12')
+              && validEmail
+              && password.length >= Number('6')) }
+            type="button"
+            data-testid="common_register__button-register"
+            onClick={ HandleClick }
+          >
+            CADASTRAR
+          </button>
+        </div>
       </form>
       { requestError && (
         <p data-testid="common_register__element-invalid_register">
