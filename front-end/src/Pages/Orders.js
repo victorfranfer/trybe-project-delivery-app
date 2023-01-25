@@ -1,5 +1,5 @@
-import SellerHeader from '../Components/sellerHeader';
-import OrderCard from '../Components/orderCard';
+import SellerHeader from '../Components/SellerHeader';
+import OrderCard from '../Components/OrderCard';
 
 export default function Orders() {
   return (
