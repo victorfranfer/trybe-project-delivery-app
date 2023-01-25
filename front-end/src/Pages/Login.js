@@ -3,10 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { requestLogin } from '../Services/Request';
 
 function Login() {
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  });
+  const [data, setData] = useState({ email: '', password: '' });
   const [loginError, setLoginError] = useState(false);
   const [disable, setDisable] = useState(true);
 
@@ -15,13 +12,13 @@ function Login() {
   async function HandleClick() {
     const { email, password } = data;
     try {
-      await requestLogin('/login', {
-        email,
-        password,
-      });
+      const { id: _, ...userWithoutId } = await requestLogin(
+        '/login',
+        { email, password },
+      );
+      console.log(userWithoutId);
       navigate.push('/customer/products');
     } catch (error) {
-      console.log(error);
       setLoginError(true);
     }
   }

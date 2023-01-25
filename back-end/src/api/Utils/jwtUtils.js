@@ -9,8 +9,6 @@ const createToken = (payload) => {
     algorithm: 'HS256',
   });
 
-  console.log(JwtPayload, verify);
-
   return token;
 };
 // export const validateToken = (token) => {

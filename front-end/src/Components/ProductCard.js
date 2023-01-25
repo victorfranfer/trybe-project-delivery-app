@@ -12,8 +12,6 @@ export default function ProductCard() {
     fetchProducts();
   }, []);
 
-  console.log(productsList);
-
   return (
     <section className="product-list">
       {
@@ -28,23 +26,24 @@ export default function ProductCard() {
               { product.name }
             </p>
             <p data-testid={ `customer_products__element-card-price-${product.id}` }>
-              { product.price }
+              { Number(product.price)
+                .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
             </p>
             <div className="quantity-buttons">
               <button
                 type="button"
-                datatest-id={ `customer_products__button-card-rm-item-${product.id}` }
+                data-testid={ `customer_products__button-card-rm-item-${product.id}` }
               >
                 -
               </button>
-              <span
+              <input
+                type="number"
                 data-testid={ `customer_products__input-card-quantity-${product.id}` }
-              >
-                quantidade
-              </span>
+              />
+
               <button
                 type="button"
-                datatest-id={ `customer_products__button-card-add-item-${product.id}` }
+                data-testid={ `customer_products__button-card-add-item-${product.id}` }
               >
                 +
               </button>
