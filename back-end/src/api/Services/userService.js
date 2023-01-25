@@ -7,7 +7,7 @@ const getUserByEmail = async (email) => {
 };
 
 const validateFields = (user) => {
-  const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
+  const emailRegex = /^[a-z0-9._-]+@[a-z0-9]+\.[a-z]/i;
   const validEmail = emailRegex.test(user.email);
   const err = new Error();
   err.status = 400;
