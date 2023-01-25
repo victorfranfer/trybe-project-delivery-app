@@ -1,7 +1,6 @@
-const { User } = require('../../database/models');
+const md5 = require('md5');
 const { createToken } = require('../Utils/jwtUtils');
 const { getUserByEmail } = require('./userService');
-const md5 = require('md5');
 
 const loginService = async ({ email, password }) => {
   const e = new Error();
@@ -27,7 +26,6 @@ const loginService = async ({ email, password }) => {
   const { password: _, ...userWithoutPassword } = user.dataValues;
   const token = createToken(userWithoutPassword);
   return { token };
-}
-
+};
 
 module.exports = loginService;
