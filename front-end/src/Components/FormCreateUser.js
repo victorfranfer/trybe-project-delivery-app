@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function FormCreateUser() {
+export default function FormCreateUser({ setCreateUserError }) {
   const [data, setData] = useState({
     name: '',
     email: '',
@@ -8,6 +9,7 @@ export default function FormCreateUser() {
     role: 'seller',
   });
   const [disable, setDisable] = useState(true);
+  console.log(setCreateUserError);
 
   useEffect(() => {
     const handleEnableButton = () => {
@@ -77,3 +79,7 @@ export default function FormCreateUser() {
     </section>
   );
 }
+
+FormCreateUser.propTypes = {
+  setCreateUserError: PropTypes.func,
+}.isRequired;

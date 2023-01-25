@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function NameFormCreateUser() {
-  const [createUserError, setCreateUserError] = useState(false);
-  console.log(setCreateUserError);
+export default function NameFormCreateUser({ createUserError }) {
   return (
     <section>
       <h2>Cadastrar novo usuário</h2>
@@ -18,3 +17,7 @@ export default function NameFormCreateUser() {
     </section>
   );
 }
+
+NameFormCreateUser.propTypes = {
+  createUserError: PropTypes.bool,
+}.isRequired;
