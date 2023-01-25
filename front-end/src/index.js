@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
-import { ProviderContext } from './Context/provider';
+import ProviderContext from './Context/provider';
 
 ReactDOM.render(
   <ProviderContext>
