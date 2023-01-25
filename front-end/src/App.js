@@ -3,10 +3,10 @@ import { Route, Switch } from 'react-router-dom';
 import Redirect from './Pages/Redirect';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
-import AppContext from './Context/provider';
+import { AppContext } from './Context/provider';
 
 function App() {
-  const {name, role} = useContext(AppContext);
+  const { name, role } = useContext(AppContext);
   console.log(name, role);
   return (
     <Switch>
