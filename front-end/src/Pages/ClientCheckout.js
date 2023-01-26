@@ -50,16 +50,14 @@ function ClientCheckout() {
         <h2>Finalizar Pedido</h2>
         <table>
           <colgroup span="6" className="columns" />
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor unitário</th>
-              <th>Sub-total</th>
-              <th>Remover Item</th>
-            </tr>
-          </thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
           {cart.map((item, index) => (
             <tbody key={ `element-table-key-${index}` }>
               <tr>
