@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { requestAdminRegister } from '../Services/Request';
+import { getUserInfo } from '../Services/Storage';
 
 export default function FormCreateUser({ setCreateUserError }) {
   const [data, setData] = useState({
@@ -9,7 +11,6 @@ export default function FormCreateUser({ setCreateUserError }) {
     role: 'seller',
   });
   const [disable, setDisable] = useState(true);
-  console.log(setCreateUserError);
 
   useEffect(() => {
     const handleEnableButton = () => {
@@ -24,6 +25,20 @@ export default function FormCreateUser({ setCreateUserError }) {
 
     handleEnableButton();
   }, [data]);
+
+  const handleClick = async () => {
+    const { token } = getUserInfo();
+
+    try {
+      await requestAdminRegister(
+        '/admin/manage',
+        data,
+        { headers: { Authorization: token } },
+      );
+    } catch (error) {
+      setCreateUserError(true);
+    }
+  };
 
   return (
     <section>
@@ -71,7 +86,7 @@ export default function FormCreateUser({ setCreateUserError }) {
           type="button"
           data-testid="admin_manage__button-register"
           disabled={ disable }
-          // onClick={ HandleClick }
+          onClick={ handleClick }
         >
           CADASTRAR
         </button>

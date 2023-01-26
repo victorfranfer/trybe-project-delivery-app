@@ -29,6 +29,11 @@ export const createNewSale = async (endpoint, body) => {
   return data;
 };
 
+export const requestAdminRegister = async (endpoint, body, headers) => {
+  const { data } = await api.post(endpoint, body, headers);
+  return data;
+};
+
 // export const requestToken = async () => {
 //   const { error } = await api.post('/validate');
 //   return error;
