@@ -5,6 +5,12 @@ const { Product } = require('../../database/models');
     return productsList;
   };
 
+const getProductById = async (id) => {
+  const product = await Product.findOne({ where: { id } });
+  return product;
+};
+
 module.exports = {
   getAll,
+  getProductById,
 };

@@ -4,6 +4,22 @@ import PropTypes from 'prop-types';
 const DEFAULT_VALUE = {
   name: '',
   role: '',
+  cart: [
+    {
+      productId: 1,
+      name: 'name',
+      quantity: 2,
+      unitPrice: 9.99,
+      subTotal: 19.98,
+    },
+    {
+      productId: 2,
+      name: 'name',
+      quantity: 2,
+      unitPrice: 9.99,
+      subTotal: 19.98,
+    },
+  ],
 };
 
 export const AppContext = createContext(DEFAULT_VALUE);
@@ -11,6 +27,7 @@ export const AppContext = createContext(DEFAULT_VALUE);
 function ProviderContext({ children }) {
   const [name, setName] = useState(DEFAULT_VALUE.name);
   const [role, setRole] = useState(DEFAULT_VALUE.role);
+  const [cart, setCart] = useState(DEFAULT_VALUE.cart);
 
   const contextValue = useMemo(
     () => ({
@@ -18,8 +35,10 @@ function ProviderContext({ children }) {
       setName,
       role,
       setRole,
+      cart,
+      setCart,
     }),
-    [name, role],
+    [name, role, cart],
   );
 
   return (
@@ -34,5 +53,4 @@ ProviderContext.propTypes = {
   ]).isRequired,
 };
 
-export { ProviderContext };
-export default AppContext;
+export default ProviderContext;

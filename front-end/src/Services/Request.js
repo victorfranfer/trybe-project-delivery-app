@@ -33,4 +33,10 @@ export const requestLogin = async (endpoint, body) => {
 //   api.defaults.headers.common.token = token;
 // };
 
+export const createNewSale = async (endpoint, body) => {
+  console.log('oi');
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
 export default api;

@@ -7,6 +7,11 @@ const getUserByEmail = async (email) => {
   if (user) return user.dataValues;
 };
 
+const getUserById = async (id) => {
+  const user = User.findOne({ where: { id } });
+  return user;
+};
+
 const validateFields = (user) => {
   const emailRegex = /^[a-z0-9._-]+@[a-z0-9]+\.[a-z]/i;
   const validEmail = emailRegex.test(user.email);
@@ -54,4 +59,5 @@ const createUser = async (user) => {
 module.exports = {
   createUser,
   getUserByEmail,
+  getUserById,
 };
