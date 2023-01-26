@@ -17,7 +17,7 @@ export const requestProducts = async (endpoint) => {
 export const requestOrders = async (endpoint) => {
   const { data } = await api.get(endpoint);
   return data;
-}
+};
 
 export const requestLogin = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
