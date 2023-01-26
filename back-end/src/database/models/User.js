@@ -38,7 +38,7 @@ const User = (sequelize, { INTEGER, STRING }) => {
       as: 'user',
     });
     User.hasMany(models.Sale, {
-      foreignKey: 'selleId',
+      foreignKey: 'sellerId',
       as: 'seller',
     });
   };
