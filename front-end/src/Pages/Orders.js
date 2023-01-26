@@ -1,11 +1,11 @@
-import SellerHeader from '../Components/SellerHeader';
-import OrderCard from '../Components/OrderCard';
+import Header from '../Components/Header';
+import OrdersItem from '../Components/OrderItem';
 
 export default function Orders() {
   return (
     <>
-      <SellerHeader />
-      <OrderCard />
+      <Header />
+      <OrdersItem />
     </>
   );
 }
