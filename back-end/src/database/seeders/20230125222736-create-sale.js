@@ -11,7 +11,7 @@ module.exports = {
         totalPrice:23.80,
         deliveryAddress:'Rua Irmão Monteiro, Bairo Pedras, 851',
         deliveryNumber:'542345812',
-        saleDate:08/04/21,
+        saleDate:2021-04-08,
         status:'Pendente',
       },
       {
@@ -21,7 +21,7 @@ module.exports = {
         totalPrice:14.20,
         deliveryAddress:'Rua Vila Bela, Bairro Gurupi, 670',
         deliveryNumber:'84524574',
-        saleDate:08/04/21,
+        saleDate:2021-04-08,
         status:'Preparando',
       },
       {
@@ -31,7 +31,7 @@ module.exports = {
         totalPrice:28.46,
         deliveryAddress:'Rua Rua Sessenta e Dois, Bairro Maranguape II, 533',
         deliveryNumber:'452137895',
-        saleDate:07/04/21,
+        saleDate:2021-04-07,
         status:'Entrege',
       },
     ], { timestamps: false });
