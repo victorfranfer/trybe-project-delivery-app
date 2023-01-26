@@ -14,13 +14,13 @@ const loginService = async ({ email, password }) => {
   
   const hash = md5(password);
 
-  if (!user || hash !== user.dataValues.password) {
+  if (!user || hash !== user.password) {
     e.message = 'Incorrect email or password';
     e.status = 404;
     throw e;
   }
 
-  const { password: _, ...userWithoutPassword } = user.dataValues;
+  const { password: _, ...userWithoutPassword } = user;
   const token = createToken(userWithoutPassword);
   return { ...userWithoutPassword, token };
 };

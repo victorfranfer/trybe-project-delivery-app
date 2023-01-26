@@ -3,7 +3,8 @@ const { hashPassword } = require('../Utils/jwtUtils');
 
 const getUserByEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
-  return user;
+  
+  return user?.dataValues;
 };
 
 const validateFields = (user) => {
