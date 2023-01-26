@@ -40,17 +40,15 @@ const validateFields = async (productIds, saleId) => {
 const createNewSaleProduct = async (productIds, saleId) => {
   await validateFields(productIds, saleId);
 
-  const sales = productIds.map(async (product) => {
-    const newSale = await SaleProduct.create({
+  const sales = productIds.map((product) => {
+    SaleProduct.create({
       quantity: product.quantity,
-      sale_id: saleId,
-      product_id: product.productId,
+      saleId,
+      productId: product.productId,
     });
-    return newSale;
   });
 
-  Promise.all(sales);
-  return sales;
+  await Promise.all(sales);
 };
 
 module.exports = {
