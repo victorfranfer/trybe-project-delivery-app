@@ -1,30 +1,43 @@
-const { JwtPayload, verify, sign } = require('jsonwebtoken');
+const { verify, sign } = require('jsonwebtoken');
+const fs = require('fs/promises');
 const md5 = require('md5');
 
-const jwtSecret = 'secret_key';
+const getKey = async () => {
+  try {
+    const key = await fs.readFile('jwt.evaluation.key', 'utf8');
+    return key;
+  } catch (err) {
+    return err.message;
+  }
+};
 
-const createToken = (payload) => {
-  const token = sign(payload, jwtSecret, {
+const createToken = async (payload) => {
+  const key = await getKey();
+
+  const token = sign(payload, key, {
     expiresIn: '1d',
     algorithm: 'HS256',
   });
 
   return token;
 };
-// export const validateToken = (token) => {
-//   try {
-//     const data = verify(token, jwtSecret);
 
-//     console.log(data, 'validate');
+const validateToken = async (token) => {
+  const key = await getKey();
 
-//     return data;
-//   } catch (error) {
-//     return null;
-//   }
-// };
+  try {
+    const data = verify(token, key);
+
+    return data;
+  } catch (error) {
+    return { error: 'Invalid Token' };
+  }
+};
+
 const hashPassword = (password) => md5(password);
 
 module.exports = {
   hashPassword,
   createToken,
+  validateToken,
 };

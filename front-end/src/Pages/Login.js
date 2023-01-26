@@ -39,10 +39,6 @@ function Login() {
     }
   }
 
-  const goToRegister = () => {
-    navigate.push('/register');
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -52,6 +48,7 @@ function Login() {
     const handleEnableButton = () => {
       const emailRegex = /^[a-z0-9._-]+@[a-z0-9]+\.[a-z]/i;
       const minLengthPassword = 6;
+
       if (data.password.length >= minLengthPassword
         && emailRegex.test(data.email)) setDisable(false);
       else setDisable(true);
@@ -97,7 +94,7 @@ function Login() {
           <button
             type="button"
             data-testid="common_login__button-register"
-            onClick={ () => goToRegister() }
+            onClick={ () => navigate.push('/register') }
           >
             Ainda não tenho conta
           </button>

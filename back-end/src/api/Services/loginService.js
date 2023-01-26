@@ -21,7 +21,7 @@ const loginService = async ({ email, password }) => {
   }
 
   const { password: _, ...userWithoutPassword } = user;
-  const token = createToken(userWithoutPassword);
+  const token = await createToken(userWithoutPassword);
   return { ...userWithoutPassword, token };
 };
 
