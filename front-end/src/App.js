@@ -10,8 +10,6 @@ import { AppContext } from './Context/provider';
 import ClientCheckout from './Pages/ClientCheckout';
 
 function App() {
-  const { name, role } = useContext(AppContext);
-  console.log(name, role);
   return (
     <Switch>
       <Route path="/customer/checkout" component={ ClientCheckout } />

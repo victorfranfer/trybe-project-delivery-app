@@ -12,7 +12,6 @@ function Login() {
 
   const saveInfoAndRedirect = (userInfo) => {
     const { role } = userInfo;
-    console.log(userInfo);
     saveUserInfo(userInfo);
 
     const path = {
