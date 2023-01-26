@@ -1,6 +1,6 @@
 const Sale = (sequelize, { INTEGER, STRING, DECIMAL, DATE }) => {
   const Sale = sequelize.define(
-    "Sale",
+    'Sale',
     {
       id: {
         allowNull: false,
@@ -11,33 +11,33 @@ const Sale = (sequelize, { INTEGER, STRING, DECIMAL, DATE }) => {
       userId: {
         type: INTEGER,
         allowNull: false,
-        field: "user_id",
+        field: 'user_id',
         foreignKey: true,
       },
       sellerId: {
         type: INTEGER,
         allowNull: false,
-        field: "seller_id",
+        field: 'seller_id',
         foreignKey: true,
       },
       totalPrice: {
         type: DECIMAL(9,2),
-        field: "total_price",
+        field: 'total_price',
         allowNull: false,
       },
       deliveryAddress: {
         type: STRING(100),
-        field: "delivery_address",
+        field: 'delivery_address',
         allowNull: false,
       },
       deliveryNumber: {
         type: STRING(50),
-        field: "delivery_number",
+        field: 'delivery_number',
         allowNull: false,
       },
       saleDate: {
         type: DATE,
-        field: "sale_date",
+        field: 'sale_date',
         allowNull: false,
       },
       status: {
@@ -48,7 +48,7 @@ const Sale = (sequelize, { INTEGER, STRING, DECIMAL, DATE }) => {
     {
       underscored: true,
       timestamps: false,
-      tableName: "sales",
+      tableName: 'sales',
     }
   );
 
