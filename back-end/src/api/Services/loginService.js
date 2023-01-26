@@ -10,17 +10,17 @@ const loginService = async ({ email, password }) => {
     throw e;
   }
 
-  const { dataValues: user } = await getUserByEmail(email);
+  const dataValues = await getUserByEmail(email);
   
   const hash = md5(password);
 
-  if (!user || hash !== user.password) {
+  if (!dataValues.user || hash !== dataValues.user.password) {
     e.message = 'Incorrect email or password';
     e.status = 404;
     throw e;
   }
 
-  const { password: _, ...userWithoutPassword } = user;
+  const { password: _, ...userWithoutPassword } = dataValues.user;
   const token = createToken(userWithoutPassword);
   return { ...userWithoutPassword, token };
 };

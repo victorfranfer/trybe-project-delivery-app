@@ -26,11 +26,13 @@ function Login() {
 
   async function HandleClick() {
     const { email, password } = data;
+
     try {
       const { id: _, ...userWithoutId } = await requestLogin(
         '/login',
         { email, password },
       );
+
       saveInfoAndRedirect(userWithoutId);
     } catch (error) {
       setLoginError(true);
