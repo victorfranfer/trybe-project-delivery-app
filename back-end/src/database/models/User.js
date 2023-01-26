@@ -28,7 +28,7 @@ const User = (sequelize, { INTEGER, STRING }) => {
     {
       underscored: true,
       timestamps: false,
-      tableName: "users",
+      tableName: 'users',
     }
   );
 
