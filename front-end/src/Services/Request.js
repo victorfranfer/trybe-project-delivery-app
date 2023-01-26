@@ -19,6 +19,11 @@ export const requestLogin = async (endpoint, body) => {
   return data;
 };
 
+export const createNewSale = async (endpoint, body) => {
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
 // export const requestToken = async () => {
 //   const { error } = await api.post('/validate');
 //   return error;

@@ -2,6 +2,16 @@ const SaleProduct = (sequelize, { INTEGER, STRING, DECIMAL, DATE }) => {
   const SaleProduct = sequelize.define(
     "SaleProduct",
     {
+      // saleId: {
+      //   type: INTEGER,
+      //   allowNull: false,
+      //   field: 'sale_id'
+      // },
+      // productId: {
+      //   type: INTEGER,
+      //   allowNull: false,
+      //   field: 'product_id'
+      // },
       quantity: {
         type: INTEGER,
         allowNull: false,
