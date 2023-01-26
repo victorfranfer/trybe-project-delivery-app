@@ -11,21 +11,18 @@ const loginService = async ({ email, password }) => {
   }
 
   const user = await getUserByEmail(email);
-
-  console.log(email);
-  console.log(user);
-
+  
   const hash = md5(password);
 
-  if (!user || hash !== user.dataValues.password) {
+  if (!user || hash !== user.password) {
     e.message = 'Incorrect email or password';
     e.status = 404;
     throw e;
   }
 
-  const { password: _, ...userWithoutPassword } = user.dataValues;
-  const token = createToken(userWithoutPassword);
-  return { token };
+  const { password: _, ...userWithoutPassword } = user;
+  const token = await createToken(userWithoutPassword);
+  return { ...userWithoutPassword, token };
 };
 
 module.exports = loginService;

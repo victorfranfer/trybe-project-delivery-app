@@ -5,16 +5,16 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import { AppContext } from './Context/provider';
 import ClientCheckout from './Pages/ClientCheckout';
+import Products from './Pages/Products';
 
 function App() {
-  const { name, role } = useContext(AppContext);
-  console.log(name, role);
   return (
     <Switch>
-      <Route path="/customer/checkout" component={ ClientCheckout } />
-      <Route path="/register" exact component={ Register } />
       <Route exact path="/" component={ Redirect } />
-      <Route path="/login" component={ Login } />
+      <Route exact path="/login" component={ Login } />
+      <Route exact path="/register" component={ Register } />
+      <Route exact path="/customer/products" component={ Products } />
+      <Route path="/customer/checkout" component={ ClientCheckout } />
     </Switch>
   );
 }

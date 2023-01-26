@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestRegister } from '../Services/Request';
+import { saveUserInfo } from '../Services/Storage';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -17,14 +18,29 @@ export default function Register() {
     setRequestError(false);
   }
 
+  const saveInfoAndRedirect = (userInfo) => {
+    const { role } = userInfo;
+
+    saveUserInfo(userInfo);
+
+    const path = {
+      customer: '/customer/products',
+      administrator: '/admin/manage',
+      seller: '/seller/orders',
+    };
+
+    return history.push(path[role]);
+  };
+
   async function HandleClick() {
     try {
-      await requestRegister('/register', {
+      const { id: _, ...userWithoutId } = await requestRegister('/register', {
         email,
         password,
         name,
       });
-      history.push('/customer/products');
+
+      saveInfoAndRedirect(userWithoutId);
     } catch (error) {
       setRequestError(true);
     }
@@ -64,17 +80,18 @@ export default function Register() {
             onChange={ ({ target }) => setPassword(target.value) }
           />
         </label>
-        <button
-          disabled={ !(name.length >= Number('12')
-            && validEmail
-            && password.length >= Number('6'))
-            || requestError }
-          type="button"
-          data-testid="common_register__button-register"
-          onClick={ HandleClick }
-        >
-          CADASTRAR
-        </button>
+        <div>
+          <button
+            disabled={ !(name.length >= Number('12')
+              && validEmail
+              && password.length >= Number('6')) }
+            type="button"
+            data-testid="common_register__button-register"
+            onClick={ HandleClick }
+          >
+            CADASTRAR
+          </button>
+        </div>
       </form>
       { requestError && (
         <p data-testid="common_register__element-invalid_register">
