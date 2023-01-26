@@ -6,28 +6,18 @@ const DEFAULT_VALUE = {
   role: '',
   cart: [
     {
-      description: 'bebida',
+      productId: 1,
+      name: 'name',
       quantity: 2,
-      price: 10.99,
-      totalValue: 21.98,
+      unitPrice: 9.99,
+      subTotal: 19.98,
     },
     {
-      description: 'bebida',
+      productId: 2,
+      name: 'name',
       quantity: 2,
-      price: 10.99,
-      totalValue: 21.98,
-    },
-    {
-      description: 'bebida',
-      quantity: 2,
-      price: 10.99,
-      totalValue: 21.98,
-    },
-    {
-      description: 'bebida',
-      quantity: 2,
-      price: 10.99,
-      totalValue: 21.98,
+      unitPrice: 9.99,
+      subTotal: 19.98,
     },
   ],
 };
@@ -48,7 +38,7 @@ function ProviderContext({ children }) {
       cart,
       setCart,
     }),
-    [name, role],
+    [name, role, cart],
   );
 
   return (
