@@ -10,7 +10,7 @@ const loginService = async ({ email, password }) => {
     throw e;
   }
 
-  const { dataValues: user } = await getUserByEmail(email);
+  const user = await getUserByEmail(email);
   
   const hash = md5(password);
 
@@ -21,7 +21,7 @@ const loginService = async ({ email, password }) => {
   }
 
   const { password: _, ...userWithoutPassword } = user;
-  const token = createToken(userWithoutPassword);
+  const token = await createToken(userWithoutPassword);
   return { ...userWithoutPassword, token };
 };
 

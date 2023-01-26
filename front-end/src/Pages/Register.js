@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestRegister } from '../Services/Request';
+import { saveUserInfo } from '../Services/Storage';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -17,14 +18,29 @@ export default function Register() {
     setRequestError(false);
   }
 
+  const saveInfoAndRedirect = (userInfo) => {
+    const { role } = userInfo;
+
+    saveUserInfo(userInfo);
+
+    const path = {
+      customer: '/customer/products',
+      administrator: '/admin/manage',
+      seller: '/seller/orders',
+    };
+
+    return history.push(path[role]);
+  };
+
   async function HandleClick() {
     try {
-      await requestRegister('/register', {
+      const { id: _, ...userWithoutId } = await requestRegister('/register', {
         email,
         password,
         name,
       });
-      history.push('/customer/products');
+
+      saveInfoAndRedirect(userWithoutId);
     } catch (error) {
       setRequestError(true);
     }

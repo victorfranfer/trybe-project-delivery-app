@@ -24,4 +24,13 @@ export const requestLogin = async (endpoint, body) => {
   return data;
 };
 
+// export const requestToken = async () => {
+//   const { error } = await api.post('/validate');
+//   return error;
+// };
+
+// export const setToken = (token) => {
+//   api.defaults.headers.common.token = token;
+// };
+
 export default api;

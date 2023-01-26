@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { getUserInfo } from '../Services/Storage';
 
 export default function Header() {
+  const { name } = getUserInfo();
+
   return (
     <nav>
       <Link
@@ -19,11 +22,12 @@ export default function Header() {
         data-testid="customer_products__element-navbar-user-full-name"
         to="/"
       >
-        NOME
+        { name }
       </Link>
       <Link
         data-testid="customer_products__element-navbar-link-logout"
         to="/"
+        onClick={ () => localStorage.clear() }
       >
         SAIR
       </Link>

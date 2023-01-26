@@ -3,7 +3,8 @@ const { hashPassword } = require('../Utils/jwtUtils');
 
 const getUserByEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
-  return user;
+
+  if (user) return user.dataValues;
 };
 
 const validateFields = (user) => {
@@ -39,14 +40,15 @@ const createUser = async (user) => {
   }
 
   if (!user.role) {
-    editUser.role = 'administrator';
+    editUser.role = 'customer';
   }
 
   const hash = hashPassword(user.password);
   editUser.password = hash;
 
   const newUser = await User.create(editUser);
-  return { token: newUser.password, role: newUser.role };
+
+  if (newUser) return newUser.dataValues;
 };
 
 module.exports = {
