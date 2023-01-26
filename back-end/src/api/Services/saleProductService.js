@@ -43,7 +43,7 @@ const createNewSaleProduct = async (productIds, saleId) => {
   const sales = productIds.map(async (product) => {
     const newSale = await SaleProduct.create({
       quantity: product.quantity,
-      saleId: saleId,
+      saleId,
       productId: product.productId,
     });
     return newSale;
