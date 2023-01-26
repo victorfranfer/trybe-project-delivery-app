@@ -1,11 +1,11 @@
 const orderService = require('../Services/sellerOrderService');
 
-const getAll = async (_req, res) => {
-  const orders = await orderService.getAll();
+const getAllBySellerId = async (_req, res) => {
+  const orders = await orderService.getAllBySellerId();
 
   return res.status(200).json(orders);
 };
 
 module.exports = {
-  getAll,
+  getAllBySellerId,
 };

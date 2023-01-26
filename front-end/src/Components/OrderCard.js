@@ -7,6 +7,7 @@ export default function OrdersCard() {
   useEffect(() => {
     const fetchOrders = async () => {
       const orders = await requestOrders('/orders');
+      console.log(orders);
       setOrdersList(orders);
     };
     fetchOrders();
@@ -17,23 +18,23 @@ export default function OrdersCard() {
   return (
     <section className="orders-list">
       {
-        ordersList.map((order) => (
-          <div className="order-card" key={ order.id }>
-            <p data-testid={ `seller_orders__element-order-id-${order.id}` }>
+        ordersList.map((sales) => (
+          <div className="order-card" key={ sales.id }>
+            <p data-testid={ `seller_orders__element-order-id-${sales.id}` }>
               Pedido
-              { order.id }
+              { sales.id }
             </p>
             <p data-testid={ `seller_orders__element-delivery-status-${order.id}` }>
-              { order.status }
+              { sales.status }
             </p>
             <p data-testid={ `seller_order__element-order-date-${order.id}` }>
-              { order.saleDate }
+              { sales.saleDate }
             </p>
             <p data-testid={ `seller_orders__element-card-price-${order.id}` }>
-              { order.totalPrice }
+              { sales.totalPrice }
             </p>
             <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
-              { order.deliveryAddress }
+              { sales.deliveryAddress }
             </p>
           </div>
         ))
