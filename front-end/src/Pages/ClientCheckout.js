@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Header from '../Components/Header';
 import { AppContext } from '../Context/provider';
 import { createNewSale } from '../Services/Request';
 
@@ -31,11 +32,11 @@ function ClientCheckout() {
 
   const endOrder = async () => {
     const body = {
-      cart,
+      productIds: cart,
       sellerId: 1,
       userId: 1,
       totalPrice,
-      deliveriAddress: address,
+      deliveryAddress: address,
       deliveryNumber: residenceNumber,
     };
 
@@ -45,7 +46,7 @@ function ClientCheckout() {
 
   return (
     <>
-      <header>header</header>
+      <Header />
       <div>
         <h2>Finalizar Pedido</h2>
         <table>

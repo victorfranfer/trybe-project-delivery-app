@@ -25,6 +25,7 @@ export const requestLogin = async (endpoint, body) => {
 };
 
 export const createNewSale = async (endpoint, body) => {
+  console.log(body);
   const { data } = await api.post(endpoint, body);
   return data;
 };
