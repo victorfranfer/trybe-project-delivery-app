@@ -54,11 +54,11 @@ const Sale = (sequelize, { INTEGER, STRING, DECIMAL, DATE }) => {
 
   Sale.associate = (models) => {
     Sale.belongsTo(models.User, {
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
       as: 'user',
     });
     Sale.belongsTo(models.User, {
-      foreignKey: 'seller_id',
+      foreignKey: 'sellerId',
       as: 'seller',
     });
   };
