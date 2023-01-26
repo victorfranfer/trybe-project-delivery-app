@@ -58,8 +58,35 @@ const createUser = async (user) => {
   if (newUser) return newUser.dataValues;
 };
 
+const adminCreateUser = async (userForCreate, { ...loggedUser }) => {
+  const { user: _, ...createUserWithoutLoggedUser } = userForCreate;
+  const userAlreadyExists = await getUserByEmail(createUserWithoutLoggedUser.email);
+  
+  if (loggedUser.role !== 'administrator') {
+    const err = new Error();
+    err.status = 409;
+    err.message = 'User is not administrator';
+    throw err;
+  }
+
+  if (userAlreadyExists) {
+    const err = new Error();
+    err.status = 409;
+    err.message = 'User already exists';
+    throw err;
+  }
+
+  const hash = hashPassword(createUserWithoutLoggedUser.password);
+  createUserWithoutLoggedUser.password = hash;
+
+  const newUser = await User.create(createUserWithoutLoggedUser);
+
+  if (newUser) return newUser.dataValues;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
   getUserById,
+  adminCreateUser,
 };
