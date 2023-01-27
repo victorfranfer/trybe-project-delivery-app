@@ -27,12 +27,12 @@ function Login() {
     const { email, password } = data;
 
     try {
-      const { id: _, ...userWithoutId } = await requestLogin(
+      const userInfo = await requestLogin(
         '/login',
         { email, password },
       );
 
-      saveInfoAndRedirect(userWithoutId);
+      saveInfoAndRedirect(userInfo);
     } catch (error) {
       setLoginError(true);
     }
