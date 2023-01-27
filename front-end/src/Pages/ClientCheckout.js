@@ -27,7 +27,7 @@ function ClientCheckout() {
   useEffect(() => {
     const getSellers = async () => {
       const sellersData = await requestSellers('/user/sellers');
-      setSellerId(sellersData[0].id)
+      setSellerId(sellersData[0].id);
       setSellers(sellersData);
     };
 
@@ -47,7 +47,7 @@ function ClientCheckout() {
 
   const endOrder = async () => {
     const { email } = getUserInfo();
-    const { id } = await getUserByEmail('/user/email', { email })
+    const { id } = await getUserByEmail('/user/email', { email });
     const body = {
       productIds: cart,
       sellerId,
@@ -56,7 +56,7 @@ function ClientCheckout() {
       deliveryAddress: address,
       deliveryNumber: residenceNumber,
     };
-    
+
     const saleId = await createNewSale('/sale/register-order', body);
     history.push(`/customer/orders/${saleId}`);
   };
@@ -143,9 +143,7 @@ function ClientCheckout() {
             data-testid="customer_checkout__select-seller"
             type="select"
             id="seller"
-            onClick={ ({ target }) => {
-              console.log(target);
-              setSellerId(target.value)}}
+            onClick={ ({ target }) => setSellerId(target.value) }
           >
             {
               sellers.map((seller) => (

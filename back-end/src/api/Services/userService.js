@@ -32,7 +32,8 @@ const validateFields = (user) => {
 
 const getAllSellers = async () => {
   const sellers = await User.findAll({
-    where: { role: 'seller' }, attributes: ['name', 'email', 'role', 'id']
+    where: { role: 'seller' },
+    attributes: ['name', 'email', 'role', 'id'],
   });
 
   return sellers;
