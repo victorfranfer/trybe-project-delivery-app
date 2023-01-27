@@ -12,7 +12,7 @@ export default function OrdersCard() {
       const userInfo = getUserInfo();
       const { id } = userInfo;
 
-      if (orders.role === 'seller' && orders.sellerId === id) {
+      if (orders.sellerId === id) {
         setOrdersList(orders);
       }
     };
