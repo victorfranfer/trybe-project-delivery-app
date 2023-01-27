@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../Components/Header';
 import { AppContext } from '../Context/provider';
 import { createNewSale, requestSellers } from '../Services/Request';
+import { getUserInfo } from '../Services/Storage';
 
 const calculateTotalPrice = (cart) => {
   let totalPrice = 0;
@@ -17,6 +18,7 @@ function ClientCheckout() {
   const [residenceNumber, setResidenceNumber] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
   const [sellers, setSellers] = useState([]);
+  const [sellerId, setSellerId] = useState();
 
   const { cart, setCart } = useContext(AppContext);
 
@@ -25,6 +27,7 @@ function ClientCheckout() {
   useEffect(() => {
     const getSellers = async () => {
       const sellersData = await requestSellers('/user/sellers');
+      setSellerId(sellersData[0].id)
       setSellers(sellersData);
     };
 
@@ -43,15 +46,17 @@ function ClientCheckout() {
   };
 
   const endOrder = async () => {
+    const { email } = getUserInfo();
+    const { id } = await getUserByEmail('/user/email', { email })
     const body = {
       productIds: cart,
       sellerId: 1,
-      userId: 1,
+      userId: id,
       totalPrice,
       deliveryAddress: address,
       deliveryNumber: residenceNumber,
     };
-
+    
     const saleId = await createNewSale('/sale/register-order', body);
     history.push(`/customer/orders/${saleId}`);
   };
@@ -138,10 +143,13 @@ function ClientCheckout() {
             data-testid="customer_checkout__select-seller"
             type="select"
             id="seller"
+            onClick={ ({ target }) => {
+              console.log(target);
+              setSellerId(target.value)}}
           >
             {
               sellers.map((seller) => (
-                <option key={ seller.name }>
+                <option value={ seller.id } key={ seller.name }>
                   {seller.name}
                 </option>
               ))

@@ -3,7 +3,6 @@ const { hashPassword } = require('../Utils/jwtUtils');
 
 const getUserByEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
-
   if (user) return user.dataValues;
 };
 
@@ -31,7 +30,13 @@ const validateFields = (user) => {
   }
 };
 
-//
+const getAllSellers = async () => {
+  const sellers = await User.findAll({
+    where: { role: 'seller' }, attributes: ['name', 'email', 'role', 'id']
+  });
+
+  return sellers;
+};
 
 const createUser = async (user) => {
   const editUser = { ...user };
@@ -58,8 +63,36 @@ const createUser = async (user) => {
   if (newUser) return newUser.dataValues;
 };
 
+const adminCreateUser = async (userForCreate, { ...loggedUser }) => {
+  const { user: _, ...createUserWithoutLoggedUser } = userForCreate;
+  const userAlreadyExists = await getUserByEmail(createUserWithoutLoggedUser.email);
+
+  if (loggedUser.role !== 'administrator') {
+    const err = new Error();
+    err.status = 409;
+    err.message = 'User is not administrator';
+    throw err;
+  }
+
+  if (userAlreadyExists) {
+    const err = new Error();
+    err.status = 409;
+    err.message = 'User already exists';
+    throw err;
+  }
+
+  const hash = hashPassword(createUserWithoutLoggedUser.password);
+  createUserWithoutLoggedUser.password = hash;
+
+  const newUser = await User.create(createUserWithoutLoggedUser);
+
+  if (newUser) return newUser.dataValues;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
   getUserById,
+  getAllSellers,
+  adminCreateUser,
 };

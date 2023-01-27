@@ -6,6 +6,15 @@ const userService = require('../Services/userService');
     return res.status(200).json(sellers);
   };
 
+  const getUserByEmail = async (req, res) => {
+    const { email } = req.body;
+
+    const user = await userService.getUserByEmail(email);
+
+    res.status(200).json(user);
+  }
+
 module.exports = {
   getSellers,
+  getUserByEmail,
 };
