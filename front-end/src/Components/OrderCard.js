@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { requestOrders } from '../Services/Request';
+import { getUserInfo } from '../Services/Storage';
 
 export default function OrdersCard() {
   const [ordersList, setOrdersList] = useState([]);
@@ -8,7 +9,12 @@ export default function OrdersCard() {
     const fetchOrders = async () => {
       const orders = await requestOrders('/orders');
       console.log(orders);
-      setOrdersList(orders);
+      const userInfo = getUserInfo();
+      const { id } = userInfo;
+
+      if (orders.role === 'seller' && orders.sellerId === id) {
+        setOrdersList(orders);
+      }
     };
     fetchOrders();
   }, []);

@@ -10,8 +10,8 @@ const getAllBySellerId = async (sellerId) => {
   return salesListBySellerId;
   };
 
-const getOrderBySellerId = async (id, role) => {
-  const salesListBySellerId = Sale.findAll({ where: { id, role } });
+const getOrderBySellerId = async (id) => {
+  const salesListBySellerId = await Sale.findAll({ where: { sellerId: id } });
   return salesListBySellerId;
   };
 
