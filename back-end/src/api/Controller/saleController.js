@@ -13,7 +13,7 @@ const createOrder = async (req, res) => {
 
   await createNewSaleProduct(productIds, newSale.id);
 
-  res.status(201).json({ message: 'created' });
+  res.status(201).json({ saleId: newSale.id });
 };
 
 module.exports = {

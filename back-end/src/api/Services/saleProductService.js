@@ -40,8 +40,8 @@ const validateFields = async (productIds, saleId) => {
 const createNewSaleProduct = async (productIds, saleId) => {
   await validateFields(productIds, saleId);
 
-  const sales = productIds.map(async (product) => {
-    const newSale = await SaleProduct.create({
+  const sales = productIds.forEach((product) => {
+    SaleProduct.create({
       quantity: product.quantity,
       saleId,
       productId: product.productId,
@@ -49,8 +49,7 @@ const createNewSaleProduct = async (productIds, saleId) => {
     return newSale;
   });
 
-  Promise.all(sales);
-  return sales;
+  await Promise.all(sales);
 };
 
 module.exports = {

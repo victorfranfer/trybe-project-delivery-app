@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  async up(queryInterface, { INTEGER, STRING, DECIMAL, DATE }) {
+  async up(queryInterface, { INTEGER }) {
     await queryInterface.createTable("sales_products", {
       saleId: {
         field: "sale_id",
