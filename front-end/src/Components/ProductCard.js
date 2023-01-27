@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../Context/provider';
-import { requestProducts } from '../Services/Request';
 import { saveCart } from '../Services/Storage';
 
 export default function ProductCard({product}) {

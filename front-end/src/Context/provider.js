@@ -2,7 +2,8 @@ import React, { createContext, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 const DEFAULT_VALUE = {
-  totalPrice: 0,
+  name: '',
+  role: '',
   cart: [],
 };
 
@@ -10,16 +11,13 @@ export const AppContext = createContext(DEFAULT_VALUE);
 
 function ProviderContext({ children }) {
   const [cart, setCart] = useState(DEFAULT_VALUE.cart);
-  const [totalPrice, setTotalPrice] = useState(DEFAULT_VALUE.totalPrice);
 
   const contextValue = useMemo(
     () => ({
       cart,
       setCart,
-      totalPrice,
-      setTotalPrice,
     }),
-    [cart, totalPrice],
+    [cart],
   );
 
   return (

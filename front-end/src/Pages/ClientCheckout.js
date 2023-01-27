@@ -13,9 +13,10 @@ const calculateTotalPrice = (cart) => {
 function ClientCheckout() {
   const [address, setAddress] = useState('');
   const [residenceNumber, setResidenceNumber] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);
   const [sellers, setSellers] = useState([]);
 
-  const { cart, setCart, setTotalPrice, totalPrice } = useContext(AppContext);
+  const { cart, setCart } = useContext(AppContext);
 
   const history = useHistory();
 
@@ -49,8 +50,8 @@ function ClientCheckout() {
       deliveryNumber: residenceNumber,
     };
 
-    await createNewSale('/sale/register-order', body);
-    history.push('/customer/orders');
+    const saleId = await createNewSale('/sale/register-order', body);
+    history.push(`/customer/orders/${saleId}`);
   };
 
   return (
@@ -98,14 +99,14 @@ function ClientCheckout() {
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {item.unitPrice}
+                {item.unitPrice.toLocaleString('pt-br', {minimumFractionDigits: 2})}
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                {item.subTotal}
+                {item.subTotal.toLocaleString('pt-br', {minimumFractionDigits: 2})}
               </td>
               <td
                 data-testid={
@@ -126,7 +127,7 @@ function ClientCheckout() {
       </table>
       <div data-testid="customer_checkout__element-order-total-price">
         Total: R$
-        {totalPrice}
+        {totalPrice.toLocaleString('pt-br', {minimumFractionDigits: 2})}
       </div>
       <p>Detalhes e Endereço para Entrega</p>
       <form>
@@ -164,6 +165,7 @@ function ClientCheckout() {
           />
         </label>
         <button
+          data-testid="customer_checkout__button-submit-order"
           onClick={ endOrder }
           type="button"
         >

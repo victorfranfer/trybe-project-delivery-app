@@ -35,13 +35,13 @@ export const requestSellers = async (endpoint) => {
   return data;
 }
 
-// export const requestToken = async () => {
-//   const { error } = await api.post('/validate');
-//   return error;
-// };
+export const requestToken = async () => {
+  const { error } = await api.post('/validate');
+  return error;
+};
 
-// export const setToken = (token) => {
-//   api.defaults.headers.common.token = token;
-// };
+export const setToken = (token) => {
+  api.defaults.headers.common.Authorization = token;
+};
 
 export default api;
