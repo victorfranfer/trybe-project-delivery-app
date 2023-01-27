@@ -21,6 +21,7 @@ export default function SellerHeader() {
       <Link
         data-testid="customer_products__element-navbar-link-logout"
         to="/"
+        onClick={ () => localStorage.clear() }
       >
         Sair
       </Link>
