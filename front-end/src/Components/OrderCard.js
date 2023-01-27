@@ -7,19 +7,12 @@ export default function OrdersCard() {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const orders = await requestOrders('/orders');
-      console.log(orders);
-      const userInfo = getUserInfo();
-      const { id } = userInfo;
-
-      if (orders.sellerId === id) {
-        setOrdersList(orders);
-      }
+      const { id } = getUserInfo();
+      const orders = await requestOrders('/seller/orders', { id });
+      setOrdersList(orders);
     };
     fetchOrders();
   }, []);
-
-  console.log(ordersList);
 
   return (
     <section className="orders-list">

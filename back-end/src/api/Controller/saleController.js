@@ -9,7 +9,6 @@ const createOrder = async (req, res) => {
   const newSale = await createNewSale(req.body);
 
   await Promise.all([newSale]);
-  console.log(newSale.id);
 
   await createNewSaleProduct(productIds, newSale.id);
 

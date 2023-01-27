@@ -2,8 +2,13 @@ const { User } = require('../../database/models');
 const { hashPassword } = require('../Utils/jwtUtils');
 
 const getUserByEmail = async (email) => {
+  if (!email) {
+    const err = new Error();
+    err.message = 'Email inválido';
+    err.status = 400;
+  }
   const user = await User.findOne({ where: { email } });
-  if (user) return user.dataValues;
+  return user.dataValues;
 };
 
 const getUserById = async (id) => {
@@ -32,7 +37,8 @@ const validateFields = (user) => {
 
 const getAllSellers = async () => {
   const sellers = await User.findAll({
-    where: { role: 'seller' }, attributes: ['name', 'email', 'role', 'id']
+    where: { role: 'seller' },
+    attributes: ['name', 'email', 'role', 'id'],
   });
 
   return sellers;

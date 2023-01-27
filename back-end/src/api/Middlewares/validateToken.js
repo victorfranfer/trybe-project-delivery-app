@@ -1,6 +1,6 @@
 const { validateToken } = require('../Utils/jwtUtils');
 
-const validateTokenMiddleware = async (req, res, next) => {
+const validateTokenMiddleware = async (req, res) => {
   const { authorization } = req.headers;
 
   if (!authorization) return res.status(401).json({ message: 'Token not found' });
@@ -9,8 +9,10 @@ const validateTokenMiddleware = async (req, res, next) => {
   
   if (result.error) return res.status(401).json({ message: 'Expired or invalid token' });
 
-  req.body.user = result;
+  res.status(201).json({ message: 'ok' });
 
-  next();
+  // req.body.user = result;
+
+  // next();
 };
 module.exports = validateTokenMiddleware;

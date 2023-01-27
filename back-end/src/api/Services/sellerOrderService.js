@@ -13,7 +13,7 @@ const getAllBySellerId = async (sellerId) => {
 const getOrderBySellerId = async (id) => {
   const salesListBySellerId = await Sale.findAll({ where: { sellerId: id } });
   return salesListBySellerId;
-  };
+};
 
   module.exports = {
     getAll,
