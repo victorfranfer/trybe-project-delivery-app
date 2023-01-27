@@ -50,7 +50,7 @@ function ClientCheckout() {
     const { id } = await getUserByEmail('/user/email', { email })
     const body = {
       productIds: cart,
-      sellerId: 1,
+      sellerId,
       userId: id,
       totalPrice,
       deliveryAddress: address,
