@@ -40,7 +40,7 @@ const validateFields = async (productIds, saleId) => {
 const createNewSaleProduct = async (productIds, saleId) => {
   await validateFields(productIds, saleId);
 
-  const sales = productIds.map((product) => {
+  const sales = productIds.forEach((product) => {
     SaleProduct.create({
       quantity: product.quantity,
       saleId,

@@ -41,8 +41,6 @@ const createNewSale = async (sale) => {
   return newSale;
 };
 
-
-
 module.exports = {
   getSaleById,
   createNewSale,
