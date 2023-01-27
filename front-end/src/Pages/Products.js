@@ -1,8 +1,11 @@
+import { useContext, useEffect, useState } from 'react';
+import Header from '../Components/Header';
+import ProductCard from '../Components/ProductCard';
+import { AppContext } from '../Context/provider';
+import { requestProducts } from '../Services/Request';
 // import { useEffect } from 'react';
 // import { requestToken, setToken } from '../Services/Request';
 // import { getUserInfo } from '../Services/Storage';
-import ProductCard from '../Components/ProductCard';
-import Header from '../Components/Header';
 
 export default function Products() {
   // useEffect(() => {
@@ -13,11 +16,30 @@ export default function Products() {
   //   };
   //   checkToken();
   // }, []);
+  const [productsList, setProductsList] = useState([]);
+
+  const { totalPrice } = useContext(AppContext);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products = await requestProducts('/products');
+      setProductsList(products);
+      console.log(productsList);
+    };
+    fetchProducts();
+    console.log(productsList);
+  }, []);
 
   return (
     <>
       <Header />
-      <ProductCard />
+      <section className="product-list">
+        {productsList.map((product) => (<ProductCard product={product}/>))}
+      </section>
+      <button data-testid="customer_products__button-cart">Ver Carrinho: 
+        <p data-testid="customer_products__checkout-bottom-value">
+          R$ {totalPrice}
+          </p></button>
     </>
   );
 }

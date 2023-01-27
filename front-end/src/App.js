@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Redirect from './Pages/Redirect';
 import Login from './Pages/Login';
@@ -9,8 +9,17 @@ import SellerOrders from './Pages/SellerOrders';
 import Admin from './Pages/Admin';
 // import { AppContext } from './Context/provider';
 import ClientCheckout from './Pages/ClientCheckout';
+import { getCart } from './Services/Storage';
+import { AppContext } from './Context/provider';
 
 function App() {
+  const { setCart } = useContext(AppContext);
+  useEffect(() => {
+    const effect = () => {
+      setCart(getCart())
+    }
+    effect();
+  }, [])
   return (
     <Switch>
       <Route path="/customer/checkout" component={ ClientCheckout } />

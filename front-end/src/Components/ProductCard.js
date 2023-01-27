@@ -1,56 +1,109 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../Context/provider';
 import { requestProducts } from '../Services/Request';
+import { saveCart } from '../Services/Storage';
 
-export default function ProductCard() {
-  const [productsList, setProductsList] = useState([]);
+export default function ProductCard({product}) {
+  const { cart, setCart } = useContext(AppContext);
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const products = await requestProducts('/products');
-      setProductsList(products);
-    };
-    fetchProducts();
-  }, []);
+    const updateQuantity = () => {
+      cart.forEach((item) => {
+        if (item.productId === product.id) {
+          setQuantity(item.quantity);
+        }
+      })
+    }
+    updateQuantity()
+  }, [cart])
+
+  const addTocart = () => {
+    setQuantity((prev) => prev + 1);
+
+    const newCart = cart.map((item) => {
+      if(item.productId === product.id) {
+        return {...item, quantity: item.quantity +1, subTotal: Number((item.subTotal + item.unitPrice).toFixed(2)) }
+      }
+      return item;
+    })
+
+    if(JSON.stringify(newCart) === JSON.stringify(cart)) {
+      setCart((prev) => [...prev, {
+        productId: product.id,
+        name: product.name,
+        quantity: 1,
+        unitPrice: Number(product.price),
+        subTotal: Number(product.price),
+      }])
+      saveCart(cart);
+      return;
+    }
+    setCart((_prev) => newCart);
+    saveCart(cart);
+  }
+
+  const removeItem = () => {
+    setQuantity((prev) => {
+      if (prev === 0) {
+        return 0
+      }
+      return prev - 1
+    });
+
+    const newCart = cart.map((item) => {
+      if(item.productId === product.id) {
+        return {...item, quantity: item.quantity -1, subTotal: Number((item.subTotal - item.unitPrice).toFixed(2)) }
+      }
+      return item;
+    });
+
+    if(quantity === 1) {
+      const newCart2 = cart.filter((item) => item.productId !== product.id);
+      setCart(newCart2);
+      saveCart(cart);
+      return;
+    }
+    setCart(newCart);
+    saveCart(cart);
+  }
 
   return (
-    <section className="product-list">
-      {
-        productsList.map((product) => (
-          <div className="product-card" key={ product.id }>
-            <img
-              src={ product.urlImage }
-              alt="product-logo"
-              data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-            />
-            <p data-testid={ `customer_products__element-card-title-${product.id}` }>
-              { product.name }
-            </p>
-            <p data-testid={ `customer_products__element-card-price-${product.id}` }>
-              { Number(product.price)
-                .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
-            </p>
-            <div className="quantity-buttons">
-              <button
-                type="button"
-                data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-              >
-                -
-              </button>
-              <input
-                type="number"
-                data-testid={ `customer_products__input-card-quantity-${product.id}` }
-              />
-
-              <button
-                type="button"
-                data-testid={ `customer_products__button-card-add-item-${product.id}` }
-              >
-                +
-              </button>
-            </div>
-          </div>
-        ))
-      }
-    </section>
+    <div className="product-card" key={ product.id }>
+      <img
+        src={ product.urlImage }
+        alt="product-logo"
+        data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+      />
+      <p data-testid={ `customer_products__element-card-title-${product.id}` }>
+        { product.name }
+      </p>
+      <p data-testid={ `customer_products__element-card-price-${product.id}` }>
+        { Number(product.price)
+          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
+      </p>
+      <div className="quantity-buttons">
+        <button
+          onClick={removeItem}
+          type="button"
+          data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+        >
+          -
+        </button>
+        <input
+          minLength={ 0 }
+          value={ quantity }
+          type="number"
+          data-testid={ `customer_products__input-card-quantity-${product.id}` }
+        />
+        <button
+        onClick={ addTocart }
+          type="button"
+          data-testid={ `customer_products__button-card-add-item-${product.id}` }
+        >
+          +
+        </button>
+      </div>
+    </div>
   );
 }
