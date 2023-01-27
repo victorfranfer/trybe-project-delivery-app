@@ -3,7 +3,6 @@ import { requestOrders } from '../Services/Request';
 
 export default function OrdersItem() {
   const [orderList, setOrderList] = useState([]);
-  console.log(orderList);
 
   useEffect(() => {
     const fetchOrders = async () => {

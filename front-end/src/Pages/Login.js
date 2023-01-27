@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestLogin } from '../Services/Request';
+import { requestLogin, setToken } from '../Services/Request';
 import { saveUserInfo } from '../Services/Storage';
 
 function Login() {
@@ -25,14 +25,13 @@ function Login() {
 
   async function HandleClick() {
     const { email, password } = data;
-
     try {
-      const { id: _, ...userWithoutId } = await requestLogin(
+      const userInfo = await requestLogin(
         '/login',
         { email, password },
       );
-
-      saveInfoAndRedirect(userWithoutId);
+      setToken(userInfo.token);
+      saveInfoAndRedirect(userInfo);
     } catch (error) {
       setLoginError(true);
     }

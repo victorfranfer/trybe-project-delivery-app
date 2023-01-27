@@ -2,7 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../Components/Header';
 import { AppContext } from '../Context/provider';
-import { createNewSale, requestSellers } from '../Services/Request';
+import {
+  createNewSale,
+  requestUser,
+  requestSellers,
+  validateToken,
+} from '../Services/Request';
 import { getUserInfo } from '../Services/Storage';
 
 const calculateTotalPrice = (cart) => {
@@ -10,8 +15,6 @@ const calculateTotalPrice = (cart) => {
   cart.forEach((item) => { totalPrice += item.subTotal; });
   return totalPrice;
 };
-
-//
 
 function ClientCheckout() {
   const [address, setAddress] = useState('');
@@ -39,25 +42,26 @@ function ClientCheckout() {
   }, [cart]);
 
   const removeItem = ({ target }) => {
-    console.log(target.value);
     const { value } = target;
     const newCart = [...cart].filter((item) => item.productId !== Number(value));
     setCart(newCart);
   };
 
   const endOrder = async () => {
-    const { email } = getUserInfo();
-    const { id } = await getUserByEmail('/user/email', { email });
+    validateToken();
+    const { email } = await getUserInfo();
+    const { id } = await requestUser('/user/email', { email });
     const body = {
       productIds: cart,
       sellerId,
-      userId: id,
+      userId: Number(id),
       totalPrice,
       deliveryAddress: address,
       deliveryNumber: residenceNumber,
     };
 
-    const saleId = await createNewSale('/sale/register-order', body);
+    const { saleId } = await createNewSale('/sale/register-order', body);
+    console.log(saleId);
     history.push(`/customer/orders/${saleId}`);
   };
 

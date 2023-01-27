@@ -14,8 +14,9 @@ export const requestProducts = async (endpoint) => {
   return data;
 };
 
-export const requestOrders = async (endpoint) => {
-  const { data } = await api.get(endpoint);
+export const requestOrders = async (endpoint, body) => {
+  console.log(body);
+  const { data } = await api.post(endpoint, body);
   return data;
 };
 
@@ -25,13 +26,17 @@ export const requestLogin = async (endpoint, body) => {
 };
 
 export const createNewSale = async (endpoint, body) => {
-  console.log(body);
   const { data } = await api.post(endpoint, body);
   return data;
 };
 
 export const requestAdminRegister = async (endpoint, body, headers) => {
   const { data } = await api.post(endpoint, body, headers);
+  return data;
+};
+
+export const requestUser = async (endpoint, body) => {
+  const { data } = await api.post(endpoint, body);
   return data;
 };
 
@@ -44,7 +49,7 @@ export const requestSellers = async (endpoint) => {
   return data;
 };
 
-export const requestToken = async () => {
+export const validateToken = async () => {
   const { error } = await api.post('/validate');
   return error;
 };

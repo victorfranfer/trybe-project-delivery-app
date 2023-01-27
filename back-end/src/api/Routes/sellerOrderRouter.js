@@ -3,6 +3,6 @@ const { getAllBySellerId } = require('../Controller/sellerOrderController');
 
 const router = express.Router();
 
-router.get('/', getAllBySellerId);
+router.post('/orders', getAllBySellerId);
 
 module.exports = router;
