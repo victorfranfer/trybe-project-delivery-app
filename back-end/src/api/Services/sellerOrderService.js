@@ -5,12 +5,18 @@ const getAll = async () => {
   return salesList;
 };
 
-  const getAllBySellerId = async (sellerId) => {
-    const salesListBySellerId = await Sale.findAll({ where: sellerId });
-    return salesListBySellerId;
+const getAllBySellerId = async (sellerId) => {
+  const salesListBySellerId = await Sale.findAll({ where: sellerId });
+  return salesListBySellerId;
+  };
+
+const getOrderBySellerId = async (id, role) => {
+  const salesListBySellerId = Sale.findAll({ where: { id, role } });
+  return salesListBySellerId;
   };
 
   module.exports = {
     getAll,
     getAllBySellerId,
+    getOrderBySellerId,
   };
