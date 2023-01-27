@@ -1,9 +1,9 @@
 const { Sale } = require('../../database/models');
 
-  const getAll = async () => {
-    const salesList = await Sale.findAll();
-    return salesList;
-  };
+const getAll = async () => {
+  const salesList = await Sale.findAll();
+  return salesList;
+};
 
   const getAllBySellerId = async (sellerId) => {
     const salesListBySellerId = await Sale.execute(
@@ -11,4 +11,9 @@ const { Sale } = require('../../database/models');
       [sellerId],
     );
     return salesListBySellerId;
-  }
+  };
+
+module.exports = {
+  getAll,
+  getAllBySellerId,
+};

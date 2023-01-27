@@ -25,17 +25,23 @@ export const requestLogin = async (endpoint, body) => {
 };
 
 export const createNewSale = async (endpoint, body) => {
+  console.log(body);
   const { data } = await api.post(endpoint, body);
   return data;
 };
 
-// export const requestToken = async () => {
-//   const { error } = await api.post('/validate');
-//   return error;
-// };
+export const requestSellers = async (endpoint) => {
+  const { data } = await api.get(endpoint);
+  return data;
+};
 
-// export const setToken = (token) => {
-//   api.defaults.headers.common.token = token;
-// };
+export const requestToken = async () => {
+  const { error } = await api.post('/validate');
+  return error;
+};
+
+export const setToken = (token) => {
+  api.defaults.headers.common.Authorization = token;
+};
 
 export default api;
