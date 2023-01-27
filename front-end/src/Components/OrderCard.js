@@ -11,7 +11,7 @@ export default function OrdersCard() {
       const orders = await requestOrders('/seller/orders', { id });
       setOrdersList(orders);
 
-      if (orders.role === 'seller' && orders.sellerId === id) {
+      if (orders.sellerId === id) {
         setOrdersList(orders);
       }
     };
