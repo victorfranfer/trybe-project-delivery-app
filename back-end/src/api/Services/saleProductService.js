@@ -46,7 +46,6 @@ const createNewSaleProduct = async (productIds, saleId) => {
       saleId,
       productId: product.productId,
     });
-    return newSale;
   });
 
   await Promise.all(sales);
