@@ -20,8 +20,8 @@ const SaleProduct = (sequelize, { INTEGER, STRING, DECIMAL, DATE }) => {
       through: SaleProduct,
       foreignKey: 'saleId', // se refere ao id de Book na tabela de `users_books`
       otherKey: 'productId', // se refere a outra chave de `users_books`
-
     });
+
     models.Product.belongsToMany(models.Sale, {
       as: 'sales',
       through: SaleProduct,
