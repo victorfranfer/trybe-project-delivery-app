@@ -59,10 +59,8 @@ const createUser = async (user) => {
 };
 
 const getAllSellers = async () => {
-  const sellers = await User.findAll({
-    where: { role: 'seller' },
-    attributes: ['name', 'email', 'role'],
-  });
+  const sellers = await User
+    .findAll({ where: { role: 'seller' }, attributes: ['name', 'email', 'role'] });
   return sellers;
 };
 

@@ -33,7 +33,6 @@ export default function Products() {
     const fetchProducts = async () => {
       const products = await requestProducts('/products');
       setProductsList(products);
-      console.log(productsList);
     };
 
     fetchProducts();

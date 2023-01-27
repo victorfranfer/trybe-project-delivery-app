@@ -107,6 +107,7 @@ export default function ProductCard({ product }) {
         <input
           minLength={ 0 }
           value={ quantity }
+          onChange={ () => {} }
           type="number"
           data-testid={ `customer_products__input-card-quantity-${product.id}` }
         />

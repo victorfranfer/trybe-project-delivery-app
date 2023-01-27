@@ -10,6 +10,8 @@ const calculateTotalPrice = (cart) => {
   return totalPrice;
 };
 
+//
+
 function ClientCheckout() {
   const [address, setAddress] = useState('');
   const [residenceNumber, setResidenceNumber] = useState('');
