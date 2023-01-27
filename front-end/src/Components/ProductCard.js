@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { AppContext } from '../Context/provider';
 import { saveCart } from '../Services/Storage';
 
-export default function ProductCard({product}) {
+export default function ProductCard({ product }) {
   const { cart, setCart } = useContext(AppContext);
   const [quantity, setQuantity] = useState(0);
 
@@ -12,52 +13,66 @@ export default function ProductCard({product}) {
         if (item.productId === product.id) {
           setQuantity(item.quantity);
         }
-      })
-    }
-    updateQuantity()
-  }, [cart])
+      });
+    };
+
+    updateQuantity();
+  }, [cart]);
 
   const addTocart = () => {
     setQuantity((prev) => prev + 1);
 
     const newCart = cart.map((item) => {
-      if(item.productId === product.id) {
-        return {...item, quantity: item.quantity +1, subTotal: Number((item.subTotal + item.unitPrice).toFixed(2)) }
+      if (item.productId === product.id) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+          subTotal: Number((item.subTotal + item.unitPrice).toFixed(2)),
+        };
       }
-      return item;
-    })
 
-    if(JSON.stringify(newCart) === JSON.stringify(cart)) {
+      return item;
+    });
+
+    if (JSON.stringify(newCart) === JSON.stringify(cart)) {
       setCart((prev) => [...prev, {
         productId: product.id,
         name: product.name,
         quantity: 1,
         unitPrice: Number(product.price),
         subTotal: Number(product.price),
-      }])
+      }]);
+
       saveCart(cart);
+
       return;
     }
-    setCart((_prev) => newCart);
+
+    setCart(() => newCart);
     saveCart(cart);
-  }
+  };
 
   const removeItem = () => {
     setQuantity((prev) => {
       if (prev === 0) {
-        return 0
+        return 0;
       }
-      return prev - 1
+      return prev - 1;
     });
 
     const newCart = cart.map((item) => {
-      if(item.productId === product.id) {
-        return {...item, quantity: item.quantity -1, subTotal: Number((item.subTotal - item.unitPrice).toFixed(2)) }
+      if (item.productId === product.id) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+          subTotal: Number((item.subTotal - item.unitPrice).toFixed(2)),
+        };
       }
+
       return item;
     });
 
-    if(quantity === 1) {
+    if (quantity === 1) {
       const newCart2 = cart.filter((item) => item.productId !== product.id);
       setCart(newCart2);
       saveCart(cart);
@@ -65,7 +80,7 @@ export default function ProductCard({product}) {
     }
     setCart(newCart);
     saveCart(cart);
-  }
+  };
 
   return (
     <div className="product-card" key={ product.id }>
@@ -83,7 +98,7 @@ export default function ProductCard({product}) {
       </p>
       <div className="quantity-buttons">
         <button
-          onClick={removeItem}
+          onClick={ removeItem }
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${product.id}` }
         >
@@ -96,7 +111,7 @@ export default function ProductCard({product}) {
           data-testid={ `customer_products__input-card-quantity-${product.id}` }
         />
         <button
-        onClick={ addTocart }
+          onClick={ addTocart }
           type="button"
           data-testid={ `customer_products__button-card-add-item-${product.id}` }
         >
@@ -106,3 +121,9 @@ export default function ProductCard({product}) {
     </div>
   );
 }
+
+ProductCard.propTypes = {
+  product: PropTypes.shape(
+    PropTypes.any.isRequired,
+  ).isRequired,
+};

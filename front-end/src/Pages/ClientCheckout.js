@@ -24,7 +24,7 @@ function ClientCheckout() {
     const getSellers = async () => {
       const sellersData = await requestSellers('/user/sellers');
       setSellers(sellersData);
-    }
+    };
 
     getSellers();
   }, []);
@@ -56,7 +56,7 @@ function ClientCheckout() {
 
   return (
     <div>
-    <Header />
+      <Header />
       <h2>Finalizar Pedido</h2>
       <table>
         <colgroup span="6" className="columns" />
@@ -99,14 +99,14 @@ function ClientCheckout() {
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {item.unitPrice.toLocaleString('pt-br', {minimumFractionDigits: 2})}
+                {item.unitPrice.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                {item.subTotal.toLocaleString('pt-br', {minimumFractionDigits: 2})}
+                {item.subTotal.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
               </td>
               <td
                 data-testid={
@@ -127,7 +127,7 @@ function ClientCheckout() {
       </table>
       <div data-testid="customer_checkout__element-order-total-price">
         Total: R$
-        {totalPrice.toLocaleString('pt-br', {minimumFractionDigits: 2})}
+        {totalPrice.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
       </div>
       <p>Detalhes e Endereço para Entrega</p>
       <form>
@@ -139,7 +139,7 @@ function ClientCheckout() {
           >
             {
               sellers.map((seller) => (
-                <option>
+                <option key={ seller.name }>
                   {seller.name}
                 </option>
               ))

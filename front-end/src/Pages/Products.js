@@ -4,8 +4,8 @@ import Header from '../Components/Header';
 import ProductCard from '../Components/ProductCard';
 import { AppContext } from '../Context/provider';
 import { requestProducts } from '../Services/Request';
-import { requestToken, setToken } from '../Services/Request';
-import { getUserInfo } from '../Services/Storage';
+// import { requestToken, setToken } from '../Services/Request';
+// import { getUserInfo } from '../Services/Storage';
 
 const calculateTotalPrice = (cart) => {
   let totalPrice = 0;
@@ -22,6 +22,7 @@ export default function Products() {
   //   };
   //   checkToken();
   // }, []);
+
   const [productsList, setProductsList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const history = useHistory();
@@ -33,10 +34,9 @@ export default function Products() {
       const products = await requestProducts('/products');
       setProductsList(products);
       console.log(productsList);
-      
     };
+
     fetchProducts();
-    console.log(productsList);
   }, []);
 
   useEffect(() => {
@@ -47,19 +47,21 @@ export default function Products() {
     <>
       <Header />
       <section className="product-list">
-        {productsList.map((product) => (<ProductCard product={product}/>))}
+        {productsList.map((product) => (
+          <ProductCard product={ product } key={ product.name } />
+        ))}
       </section>
       <button
-      disabled={
-        totalPrice === 0
-      }
-      onClick={() => {
-        history.push('/customer/checkout');
-      }}
-      data-testid="customer_products__button-cart">Ver Carrinho: R$
+        type="button"
+        disabled={ totalPrice === 0 }
+        onClick={ () => { history.push('/customer/checkout'); } }
+        data-testid="customer_products__button-cart"
+      >
+        Ver Carrinho: R$
         <p data-testid="customer_products__checkout-bottom-value">
-           {Number(totalPrice).toLocaleString('pt-br', {minimumFractionDigits: 2})}
-          </p></button>
+          {Number(totalPrice).toLocaleString('pt-br', { minimumFractionDigits: 2 })}
+        </p>
+      </button>
     </>
   );
 }

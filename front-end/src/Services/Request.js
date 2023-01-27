@@ -33,7 +33,7 @@ export const createNewSale = async (endpoint, body) => {
 export const requestSellers = async (endpoint) => {
   const { data } = await api.get(endpoint);
   return data;
-}
+};
 
 export const requestToken = async () => {
   const { error } = await api.post('/validate');

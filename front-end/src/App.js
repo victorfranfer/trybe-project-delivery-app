@@ -7,19 +7,21 @@ import Products from './Pages/Products';
 import Orders from './Pages/Orders';
 import SellerOrders from './Pages/SellerOrders';
 import Admin from './Pages/Admin';
-// import { AppContext } from './Context/provider';
 import ClientCheckout from './Pages/ClientCheckout';
 import { getCart } from './Services/Storage';
 import { AppContext } from './Context/provider';
 
 function App() {
   const { setCart } = useContext(AppContext);
+
   useEffect(() => {
     const effect = () => {
-      setCart(getCart())
-    }
+      setCart(getCart());
+    };
+
     effect();
-  }, [])
+  }, []);
+
   return (
     <Switch>
       <Route path="/customer/checkout" component={ ClientCheckout } />

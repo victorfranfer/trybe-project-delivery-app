@@ -15,15 +15,14 @@ const getUserInfo = () => {
   return userInfo;
 };
 
-
 const saveCart = (cart) => {
-  localStorage.setItem('cart', JSON.stringify(cart))
-}
+  localStorage.setItem('cart', JSON.stringify(cart));
+};
 
 const getCart = () => {
   const cart = JSON.parse(localStorage.getItem('cart'));
   return cart;
-}
+};
 
 module.exports = {
   saveUserInfo,
