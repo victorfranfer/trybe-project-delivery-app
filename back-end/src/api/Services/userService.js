@@ -58,15 +58,8 @@ const createUser = async (user) => {
   if (newUser) return newUser.dataValues;
 };
 
-const getAllSellers = async () => {
-  const sellers = await User
-    .findAll({ where: { role: 'seller' }, attributes: ['name', 'email', 'role'] });
-  return sellers;
-};
-
 module.exports = {
   createUser,
   getUserByEmail,
   getUserById,
-  getAllSellers,
 };
