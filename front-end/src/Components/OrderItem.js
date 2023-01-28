@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { requestOrders } from '../Services/Request';
 import { getUserInfo } from '../Services/Storage';
 
 export default function OrdersItem() {
   const [orderList, setOrderList] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -19,29 +21,34 @@ export default function OrdersItem() {
       {
         orderList.map((element, index) => (
           <div className="customer-order" key={ index }>
-            <div>
-              <span
-                data-testid={ `customer_orders__element-order-id-${element.id}` }
-              >
-                Pedido
-                {element.id}
-              </span>
-              <span
-                data-testid={ `customer_orders__element-delivery-status-${element.id}` }
-              >
-                {element.status}
-              </span>
-              <span
-                data-testid={ `customer_orders__element-order-date${element.id}` }
-              >
-                {element.saleDate}
-              </span>
-              <span
-                data-testid={ `customer_orders__element-card-price${element.id}` }
-              >
-                {element.totalPrice}
-              </span>
-            </div>
+            <button
+              type="button"
+              onClick={ () => history.push(`/customer/orders/${element.id}`) }
+            >
+              <div>
+                <span
+                  data-testid={ `customer_orders__element-order-id-${element.id}` }
+                >
+                  Pedido
+                  {element.id}
+                </span>
+                <span
+                  data-testid={ `customer_orders__element-delivery-status-${element.id}` }
+                >
+                  {element.status}
+                </span>
+                <span
+                  data-testid={ `customer_orders__element-order-date${element.id}` }
+                >
+                  {element.saleDate}
+                </span>
+                <span
+                  data-testid={ `customer_orders__element-card-price${element.id}` }
+                >
+                  {element.totalPrice}
+                </span>
+              </div>
+            </button>
           </div>
         ))
       }

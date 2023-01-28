@@ -8,22 +8,21 @@ export default function Header() {
     <nav>
       <Link
         data-testid="customer_products__element-navbar-link-products"
-        to="/"
+        to="/customer/products"
       >
         PRODUTOS
       </Link>
       <Link
         data-testid="customer_products__element-navbar-link-orders"
-        to="/customer/products"
+        to="/customer/orders"
       >
         MEUS PEDIDOS
       </Link>
-      <Link
+      <span
         data-testid="customer_products__element-navbar-user-full-name"
-        to="/"
       >
         { name }
-      </Link>
+      </span>
       <Link
         data-testid="customer_products__element-navbar-link-logout"
         to="/"
