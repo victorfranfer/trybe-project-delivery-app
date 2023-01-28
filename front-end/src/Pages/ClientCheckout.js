@@ -60,7 +60,7 @@ function ClientCheckout() {
       deliveryNumber: residenceNumber,
     };
 
-    const saleId = await createNewSale('/sale/register-order', body);
+    const { saleId } = await createNewSale('/sale/register-order', body);
     history.push(`/customer/orders/${saleId}`);
   };
 
