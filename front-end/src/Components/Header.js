@@ -14,7 +14,7 @@ export default function Header() {
       </Link>
       <Link
         data-testid="customer_products__element-navbar-link-orders"
-        to="/"
+        to="/customer/products"
       >
         MEUS PEDIDOS
       </Link>

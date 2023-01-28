@@ -1,7 +1,8 @@
-const productService = require('../Services/orderService');
+const orderService = require('../Services/orderService');
 
-  const getAll = async (_req, res) => {
-    const orders = await productService.getAll();
+  const getAll = async (req, res) => {
+    const { id } = req.body;
+    const orders = await orderService.getAllById(id);
 
     return res.status(200).json(orders);
   };
