@@ -14,6 +14,8 @@ export default function ProductCard({ product }) {
           setQuantity(item.quantity);
         }
       });
+
+      saveCart(cart);
     };
 
     updateQuantity();
@@ -35,21 +37,19 @@ export default function ProductCard({ product }) {
     });
 
     if (JSON.stringify(newCart) === JSON.stringify(cart)) {
-      setCart((prev) => [...prev, {
-        productId: product.id,
-        name: product.name,
-        quantity: 1,
-        unitPrice: Number(product.price),
-        subTotal: Number(product.price),
-      }]);
-
-      saveCart(cart);
-
-      return;
+      return setCart((prev) => [
+        ...prev,
+        {
+          productId: product.id,
+          name: product.name,
+          quantity: 1,
+          unitPrice: Number(product.price),
+          subTotal: Number(product.price),
+        },
+      ]);
     }
 
-    setCart(() => newCart);
-    saveCart(cart);
+    return setCart(newCart);
   };
 
   const removeItem = () => {
