@@ -18,11 +18,11 @@ export default function Header() {
       >
         MEUS PEDIDOS
       </Link>
-      <span
+      <p
         data-testid="customer_products__element-navbar-user-full-name"
       >
         { name }
-      </span>
+      </p>
       <Link
         data-testid="customer_products__element-navbar-link-logout"
         to="/"

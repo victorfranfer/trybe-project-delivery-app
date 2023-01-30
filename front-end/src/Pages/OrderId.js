@@ -1,9 +1,9 @@
 import Header from '../Components/Header';
 
-export default function OrderId() {
+function OrderId() {
   return (
-    <div>
-      <Header />
-    </div>
+    <Header />
   );
 }
+
+export default OrderId;
