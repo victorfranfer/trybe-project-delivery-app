@@ -8,7 +8,7 @@ import {
   requestSellers,
   validateToken,
 } from '../Services/Request';
-import { getUserInfo } from '../Services/Storage';
+import { getUserInfo, saveCart } from '../Services/Storage';
 
 const calculateTotalPrice = (cart) => {
   let totalPrice = 0;
@@ -48,21 +48,26 @@ function ClientCheckout() {
   };
 
   const endOrder = async () => {
-    validateToken();
-    const { email } = await getUserInfo();
-    const { id } = await requestUser('/user/email', { email });
-    const body = {
-      productIds: cart,
-      sellerId,
-      userId: Number(id),
-      totalPrice,
-      deliveryAddress: address,
-      deliveryNumber: residenceNumber,
-    };
+    try {
+      validateToken();
+      const { email } = await getUserInfo();
+      const { id } = await requestUser('/user/email', { email });
+      const body = {
+        productIds: cart,
+        sellerId,
+        userId: Number(id),
+        totalPrice,
+        deliveryAddress: address,
+        deliveryNumber: residenceNumber,
+      };
 
-    const { saleId } = await createNewSale('/sale/register-order', body);
-    console.log(saleId);
-    history.push(`/customer/orders/${saleId}`);
+      const { saleId } = await createNewSale('/sale/register-order', body);
+      saveCart([]);
+      history.push(`/customer/orders/${saleId}`);
+    } catch (err) {
+      console.log(err);
+      // Redirect('/login');
+    }
   };
 
   return (

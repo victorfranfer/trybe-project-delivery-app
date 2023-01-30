@@ -19,6 +19,13 @@ function App() {
     const effect = () => {
       setCart(getCart());
     };
+    /*
+    const userInfo = getUserInfo();
+    console.log(userInfo.token);
+    if (!userInfo.token) {
+      redirect('/login');
+    }
+    redirect('/customer/products'); */
 
     effect();
   }, []);

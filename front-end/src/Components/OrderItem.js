@@ -16,6 +16,16 @@ export default function OrdersItem() {
     fetchOrders();
   }, []);
 
+  function dataAtualFormatada(data) {
+    const newDate = new Date(data);
+    const dia = newDate.getDate().toString();
+    const diaF = (dia.length === 1) ? `0${dia}` : dia;
+    const mes = (newDate.getMonth() + 1).toString(); // +1 pois no getMonth Janeiro começa com zero.
+    const mesF = (mes.length === 1) ? `0${mes}` : mes;
+    const anoF = newDate.getFullYear();
+    return `${diaF}/${mesF}/${anoF}`;
+  }
+
   return (
     <div className="order-list">
       {
@@ -38,12 +48,12 @@ export default function OrdersItem() {
                   {element.status}
                 </span>
                 <span
-                  data-testid={ `customer_orders__element-order-date${element.id}` }
+                  data-testid={ `customer_orders__element-order-date-${element.id}` }
                 >
-                  {element.saleDate}
+                  {dataAtualFormatada(element.saleDate)}
                 </span>
                 <span
-                  data-testid={ `customer_orders__element-card-price${element.id}` }
+                  data-testid={ `customer_orders__element-card-price-${element.id}` }
                 >
                   {element.totalPrice}
                 </span>
