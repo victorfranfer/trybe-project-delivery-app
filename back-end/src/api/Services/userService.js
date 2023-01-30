@@ -8,6 +8,7 @@ const getUserByEmail = async (email) => {
     err.status = 400;
   }
   const user = await User.findOne({ where: { email } });
+  if (!user) return null;
   return user.dataValues;
 };
 
