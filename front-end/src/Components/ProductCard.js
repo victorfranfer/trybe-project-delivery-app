@@ -14,6 +14,8 @@ export default function ProductCard({ product }) {
           setQuantity(item.quantity);
         }
       });
+
+      saveCart(cart);
     };
 
     updateQuantity();
@@ -35,26 +37,24 @@ export default function ProductCard({ product }) {
     });
 
     if (JSON.stringify(newCart) === JSON.stringify(cart)) {
-      setCart((prev) => [...prev, {
-        productId: product.id,
-        name: product.name,
-        quantity: 1,
-        unitPrice: Number(product.price),
-        subTotal: Number(product.price),
-      }]);
-
-      saveCart(cart);
-
-      return;
+      return setCart((prev) => [
+        ...prev,
+        {
+          productId: product.id,
+          name: product.name,
+          quantity: 1,
+          unitPrice: Number(product.price),
+          subTotal: Number(product.price),
+        },
+      ]);
     }
 
-    setCart(() => newCart);
-    saveCart(cart);
+    return setCart(newCart);
   };
 
   const removeItem = () => {
     setQuantity((prev) => {
-      if (prev === 0) {
+      if (prev === 0 || prev >= 0) {
         return 0;
       }
       return prev - 1;
@@ -74,12 +74,39 @@ export default function ProductCard({ product }) {
 
     if (quantity === 1) {
       const newCart2 = cart.filter((item) => item.productId !== product.id);
-      setCart(newCart2);
-      saveCart(cart);
-      return;
+
+      return setCart(newCart2);
     }
-    setCart(newCart);
-    saveCart(cart);
+    return setCart(newCart);
+  };
+
+  const updateCart = ({ target }) => {
+    const newCart = cart.map((item) => {
+      if (item.productId === product.id && target.value > 0) {
+        return {
+          ...item,
+          quantity: target.value,
+          subTotal: Number((product.price * target.value).toFixed(2)),
+        };
+      }
+
+      return item;
+    });
+
+    if (JSON.stringify(newCart) === JSON.stringify(cart) && target.value > 0) {
+      return setCart((prev) => [
+        ...prev,
+        {
+          productId: product.id,
+          name: product.name,
+          quantity: target.value,
+          unitPrice: Number(product.price),
+          subTotal: Number((product.price * target.value).toFixed(2)),
+        },
+      ]);
+    }
+
+    return setCart(newCart);
   };
 
   return (
@@ -107,7 +134,7 @@ export default function ProductCard({ product }) {
         <input
           minLength={ 0 }
           value={ quantity }
-          onChange={ () => {} }
+          onChange={ updateCart }
           type="number"
           data-testid={ `customer_products__input-card-quantity-${product.id}` }
         />
