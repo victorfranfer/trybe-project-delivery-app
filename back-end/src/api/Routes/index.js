@@ -20,6 +20,8 @@ router.use('/user', userRouter);
 router.use('/customer', orderRouter);
 router.use('/seller', sellerOrderRouter);
 router.use('/admin/manage', adminCreateUserRouter);
-router.use('/validate', validateTokenMiddleware);
+router.use('/validate', validateTokenMiddleware, (_req, res) => {
+  res.status(201).json({ message: 'ok' });
+});
 
 module.exports = router;
