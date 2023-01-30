@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { requestOrders } from '../Services/Request';
+import { getUserInfo } from '../Services/Storage';
 
 export default function OrdersItem() {
   const [orderList, setOrderList] = useState([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const orders = await requestOrders('/orders');
+      const { id } = getUserInfo();
+      const orders = await requestOrders('/customer/orders', { id });
       setOrderList(orders);
     };
     fetchOrders();

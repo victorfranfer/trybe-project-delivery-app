@@ -13,12 +13,13 @@ const router = express.Router();
 
 router.use('/login', loginRouter);
 router.use('/register', registerRouter);
-router.use('/products', productRouter);
 router.use('/sale', saleRouter);
-router.use('/orders', orderRouter);
+router.use('/products', productRouter);
+router.use('/user', userRouter);
+
+router.use('/customer', orderRouter);
 router.use('/seller', sellerOrderRouter);
 router.use('/admin/manage', adminCreateUserRouter);
-router.use('/user', userRouter);
 router.use('/validate', validateTokenMiddleware);
 
 module.exports = router;
