@@ -29,7 +29,6 @@ function App() {
       <Route path="/register" exact component={ Register } />
       <Route exact path="/" component={ Redirect } />
       <Route exact path="/login" component={ Login } />
-      <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
       <Route exact path="/admin/manage" component={ Admin } />
