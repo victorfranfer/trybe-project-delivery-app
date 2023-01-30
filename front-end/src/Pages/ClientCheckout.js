@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import Header from '../Components/Header';
 import { AppContext } from '../Context/provider';
 import {
@@ -8,7 +8,7 @@ import {
   requestSellers,
   validateToken,
 } from '../Services/Request';
-import { getUserInfo } from '../Services/Storage';
+import { getUserInfo, saveCart } from '../Services/Storage';
 
 const calculateTotalPrice = (cart) => {
   let totalPrice = 0;
@@ -48,20 +48,24 @@ function ClientCheckout() {
   };
 
   const endOrder = async () => {
-    validateToken();
-    const { email } = await getUserInfo();
-    const { id } = await requestUser('/user/email', { email });
-    const body = {
-      productIds: cart,
-      sellerId,
-      userId: Number(id),
-      totalPrice,
-      deliveryAddress: address,
-      deliveryNumber: residenceNumber,
-    };
-
-    const { saleId } = await createNewSale('/sale/register-order', body);
-    history.push(`/customer/orders/${saleId}`);
+    try {
+      validateToken();
+      const { email } = await getUserInfo();
+      const { id } = await requestUser('/user/email', { email });
+      const body = {
+        productIds: cart,
+        sellerId,
+        userId: Number(id),
+        totalPrice,
+        deliveryAddress: address,
+        deliveryNumber: residenceNumber,
+      };
+      const { saleId } = await createNewSale('/sale/register-order', body);
+      history.push(`/customer/orders/${saleId}`);
+      saveCart([]);
+    } catch (err) {
+      Redirect('/login');
+    }
   };
 
   return (
