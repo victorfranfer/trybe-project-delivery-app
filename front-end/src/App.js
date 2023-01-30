@@ -8,7 +8,7 @@ import Orders from './Pages/Orders';
 import SellerOrders from './Pages/SellerOrders';
 import Admin from './Pages/Admin';
 import ClientCheckout from './Pages/ClientCheckout';
-import OrderId from './Pages/OrdersId';
+import OrderId from './Pages/OrderId';
 import { getCart } from './Services/Storage';
 import { AppContext } from './Context/provider';
 
