@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { requestOrders } from '../Services/Request';
+import { requestOrders } from '../Services/Request';
 
 export default function SellerOrderDetailCard() {
   const [orderId, setOrderId] = useState([]);
@@ -7,8 +7,8 @@ export default function SellerOrderDetailCard() {
   useEffect(() => {
     const fetchOrders = async () => {
       const { id } = getUserInfo();
-      const orders = await requestOrders('/seller/orders', { id });
-      console.log(orders[0]);
+      const orders = await requestOrders(`/seller/orders/${id}`, { id });
+      console.log('cheguei');
       setOrderId(orders);
     };
     fetchOrders();
