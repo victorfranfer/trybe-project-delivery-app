@@ -10,6 +10,7 @@ export default function OrdersCard() {
     const fetchOrders = async () => {
       const { id } = getUserInfo();
       const orders = await requestOrders('/seller/orders', { id });
+      console.log(orders);
       setOrdersList(orders);
     };
     fetchOrders();

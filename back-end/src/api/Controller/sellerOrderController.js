@@ -8,6 +8,15 @@ const getAllBySellerId = async (req, res) => {
   return res.status(200).json(orders);
 };
 
+const getOrderById = async (req, res) => {
+  const { id } = req.body;
+  const order = await orderService.getOrderById(id);
+  console.log(order);
+
+  return res.status(200).json(order);
+}
+
 module.exports = {
   getAllBySellerId,
+  getOrderById,
 };
