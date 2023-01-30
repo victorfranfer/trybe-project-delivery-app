@@ -1,6 +1,6 @@
 const User = (sequelize, { INTEGER, STRING }) => {
   const User = sequelize.define(
-    "User",
+    'User',
     {
       id: {
         allowNull: false,
@@ -28,18 +28,18 @@ const User = (sequelize, { INTEGER, STRING }) => {
     {
       underscored: true,
       timestamps: false,
-      tableName: "users",
+      tableName: 'users',
     }
   );
 
   User.associate = (models) => {
     User.hasMany(models.Sale, {
-      foreignKey: "user_id",
-      as: "user",
+      foreignKey: 'userId',
+      as: 'user',
     });
     User.hasMany(models.Sale, {
-      foreignKey: "seller_id",
-      as: "seller",
+      foreignKey: 'sellerId',
+      as: 'seller',
     });
   };
   return User;

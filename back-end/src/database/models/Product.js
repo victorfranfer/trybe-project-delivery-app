@@ -1,6 +1,6 @@
 const Product = (sequelize, { INTEGER, STRING, DECIMAL }) => {
   const Product = sequelize.define(
-    "Product",
+    'Product',
     {
       id: {
         allowNull: false,
@@ -14,19 +14,19 @@ const Product = (sequelize, { INTEGER, STRING, DECIMAL }) => {
       },
       price: {
         type: DECIMAL(4,2),
-        field: "price",
+        field: 'price',
         allowNull: false,
       },
       urlImage: {
         type: STRING(200),
-        field: "url_image",
+        field: 'url_image',
         allowNull: false,
       },
     },
     {
       underscored: true,
       timestamps: false,
-      tableName: "products",
+      tableName: 'products',
     }
   );
 

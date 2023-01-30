@@ -1,34 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestLogin } from '../Services/Request';
+import { requestLogin, setToken } from '../Services/Request';
+import { saveUserInfo } from '../Services/Storage';
 
 function Login() {
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  });
+  const [data, setData] = useState({ email: '', password: '' });
   const [loginError, setLoginError] = useState(false);
   const [disable, setDisable] = useState(true);
 
   const navigate = useHistory();
 
+  const saveInfoAndRedirect = (userInfo) => {
+    const { role } = userInfo;
+    saveUserInfo(userInfo);
+
+    const path = {
+      customer: '/customer/products',
+      administrator: '/admin/manage',
+      seller: '/seller/orders',
+    };
+
+    return navigate.push(path[role]);
+  };
+
   async function HandleClick() {
     const { email, password } = data;
     try {
-      await requestLogin('/login', {
-        email,
-        password,
-      });
-      navigate.push('/customer/products');
+      const userInfo = await requestLogin(
+        '/login',
+        { email, password },
+      );
+      setToken(userInfo.token);
+      saveInfoAndRedirect(userInfo);
     } catch (error) {
-      console.log(error);
       setLoginError(true);
     }
   }
-
-  const goToRegister = () => {
-    navigate.push('/register');
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +46,7 @@ function Login() {
     const handleEnableButton = () => {
       const emailRegex = /^[a-z0-9._-]+@[a-z0-9]+\.[a-z]/i;
       const minLengthPassword = 6;
+
       if (data.password.length >= minLengthPassword
         && emailRegex.test(data.email)) setDisable(false);
       else setDisable(true);
@@ -84,7 +92,7 @@ function Login() {
           <button
             type="button"
             data-testid="common_login__button-register"
-            onClick={ () => goToRegister() }
+            onClick={ () => navigate.push('/register') }
           >
             Ainda não tenho conta
           </button>

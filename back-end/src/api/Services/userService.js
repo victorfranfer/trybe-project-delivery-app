@@ -2,7 +2,18 @@ const { User } = require('../../database/models');
 const { hashPassword } = require('../Utils/jwtUtils');
 
 const getUserByEmail = async (email) => {
+  if (!email) {
+    const err = new Error();
+    err.message = 'Email inválido';
+    err.status = 400;
+  }
   const user = await User.findOne({ where: { email } });
+  if (!user) return null;
+  return user.dataValues;
+};
+
+const getUserById = async (id) => {
+  const user = User.findOne({ where: { id } });
   return user;
 };
 
@@ -25,6 +36,15 @@ const validateFields = (user) => {
   }
 };
 
+const getAllSellers = async () => {
+  const sellers = await User.findAll({
+    where: { role: 'seller' },
+    attributes: ['name', 'email', 'role', 'id'],
+  });
+
+  return sellers;
+};
+
 const createUser = async (user) => {
   const editUser = { ...user };
   
@@ -39,17 +59,47 @@ const createUser = async (user) => {
   }
 
   if (!user.role) {
-    editUser.role = 'admin';
+    editUser.role = 'customer';
   }
 
   const hash = hashPassword(user.password);
   editUser.password = hash;
 
   const newUser = await User.create(editUser);
-  return { token: newUser.password, role: newUser.role };
+
+  if (newUser) return newUser.dataValues;
+};
+
+const adminCreateUser = async (userForCreate, { ...loggedUser }) => {
+  const { user: _, ...createUserWithoutLoggedUser } = userForCreate;
+  const userAlreadyExists = await getUserByEmail(createUserWithoutLoggedUser.email);
+
+  if (loggedUser.role !== 'administrator') {
+    const err = new Error();
+    err.status = 409;
+    err.message = 'User is not administrator';
+    throw err;
+  }
+
+  if (userAlreadyExists) {
+    const err = new Error();
+    err.status = 409;
+    err.message = 'User already exists';
+    throw err;
+  }
+
+  const hash = hashPassword(createUserWithoutLoggedUser.password);
+  createUserWithoutLoggedUser.password = hash;
+
+  const newUser = await User.create(createUserWithoutLoggedUser);
+
+  if (newUser) return newUser.dataValues;
 };
 
 module.exports = {
   createUser,
   getUserByEmail,
+  getUserById,
+  getAllSellers,
+  adminCreateUser,
 };
