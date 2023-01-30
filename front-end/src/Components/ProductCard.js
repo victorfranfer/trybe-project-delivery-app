@@ -132,7 +132,7 @@ export default function ProductCard({ product }) {
           -
         </button>
         <input
-          minLength={ 0 }
+          min="0"
           value={ quantity }
           onChange={ updateCart }
           type="number"
