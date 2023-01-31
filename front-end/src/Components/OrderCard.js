@@ -10,6 +10,10 @@ export default function OrdersCard() {
       const { id } = getUserInfo();
       const orders = await requestOrders('/seller/orders', { id });
       setOrdersList(orders);
+
+      if (orders.role === 'seller' && orders.sellerId === id) {
+        setOrdersList(orders);
+      }
     };
     fetchOrders();
   }, []);
