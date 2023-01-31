@@ -9,9 +9,7 @@ export default function SellerOrderDetailCard() {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      console.log(id);
       const order = await getProductSale('/seller/orders/', { params: id });
-      console.log(order);
       setOrderId(order);
     };
     fetchOrders();
