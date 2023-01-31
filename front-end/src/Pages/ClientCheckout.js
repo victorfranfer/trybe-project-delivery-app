@@ -65,8 +65,7 @@ function ClientCheckout() {
       saveCart([]);
       history.push(`/customer/orders/${saleId}`);
     } catch (err) {
-      console.log(err);
-      // Redirect('/login');
+      Redirect('/login');
     }
   };
 
