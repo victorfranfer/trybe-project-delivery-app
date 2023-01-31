@@ -19,6 +19,13 @@ function App() {
     const effect = () => {
       setCart(getCart());
     };
+    /*
+    const userInfo = getUserInfo();
+    console.log(userInfo.token);
+    if (!userInfo.token) {
+      redirect('/login');
+    }
+    redirect('/customer/products'); */
 
     effect();
   }, []);
@@ -29,7 +36,6 @@ function App() {
       <Route path="/register" exact component={ Register } />
       <Route exact path="/" component={ Redirect } />
       <Route exact path="/login" component={ Login } />
-      <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
       <Route exact path="/admin/manage" component={ Admin } />
