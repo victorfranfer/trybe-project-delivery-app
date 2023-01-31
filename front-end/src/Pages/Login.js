@@ -31,6 +31,7 @@ function Login() {
         { email, password },
       );
       setToken(userInfo.token);
+
       saveInfoAndRedirect(userInfo);
     } catch (error) {
       setLoginError(true);
