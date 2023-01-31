@@ -42,16 +42,13 @@ const createNewSale = async (sale) => {
 };
 
 const updateSaleById = async (id) => {
-  console.log(id)
   const [updatedSale] = await Sale.update(
-    { status: "entregue" },
+    { status: 'entregue' },
     { where: { id } }, 
-  )
-
-  console.log(updatedSale);
+  );
 
   return updatedSale;
-}
+};
 
 module.exports = {
   getSaleById,

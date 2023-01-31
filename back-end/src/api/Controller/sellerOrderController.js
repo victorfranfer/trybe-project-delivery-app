@@ -12,7 +12,7 @@ const getOrderById = async (req, res) => {
   const order = await orderService.getOrderById(id);
 
   return res.status(200).json(order);
-}
+};
 
 module.exports = {
   getAllBySellerId,

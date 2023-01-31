@@ -20,7 +20,7 @@ const updateSaleByIdController = async (req, res) => {
   const updatedSale = await updateSaleById(Number(id));
 
   res.status(201).json(updatedSale);
-}
+};
 
 module.exports = {
   createOrder,
