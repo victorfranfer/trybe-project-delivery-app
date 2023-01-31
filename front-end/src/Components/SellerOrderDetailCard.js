@@ -3,19 +3,23 @@ import { useParams } from 'react-router-dom';
 import { getProductSale } from '../Services/Request';
 
 export default function SellerOrderDetailCard() {
-  const [orderInfo, setOrderInfo] = useState([]);
+  const [orderInfo, setOrderInfo] = useState({});
+  const [products, setProducts] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchOrders = async () => {
       console.log(id);
-      const order = await getProductSale('/seller/orders/', { params: id });
+      const order = await getProductSale(`/seller/orders/${id}`, { params: id });
       console.log(order);
-      setOrderInfo(order);
+      setOrderInfo(order[0]);
+      setProducts(order[0].products);
     };
     fetchOrders();
   }, []);
+
+  console.log(products);
 
   function formattedCurrentDate(data) {
     const newDate = new Date(data);
@@ -49,59 +53,63 @@ export default function SellerOrderDetailCard() {
         Saiu para entrega
       </button>
       <table>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-Total</th>
-        </tr>
-        {
-          orderInfo.map((order, i) => (
-            <tr key={ order.id }>
-              <td
-                data-testid={
-                  `seller_order_details__element-order-table-item-number-${i + 1}`
-                }
-              >
-                {i + 1}
-              </td>
-              <td
-                data-testid={
-                  `seller_order_details__element-order-table-name-${i + 1}`
-                }
-              >
-                {order.product.name}
-              </td>
-              <td
-                data-testid={
-                  `seller_order_details__element-order-table-quantity-${i + 1}`
-                }
-              >
-                {order.product.quantity}
-              </td>
-              <td
-                data-testid={
-                  `seller_order_details__element-order-table-unit-price-${i + 1}`
-                }
-              >
-                {order.product.price}
-              </td>
-              <td
-                data-testid={
-                  `seller_order_details__element-order-table-subtotal-${i + 1}`
-                }
-              >
-                {order.product.price * order.product.quantity}
-              </td>
-            </tr>
-          ))
-        }
-        <span>
-          Total: R$
-          {orderInfo.totalPrice}
-        </span>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((product, i) => (
+              <tr key={ i }>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-item-number-${i + 1}`
+                  }
+                >
+                  {i + 1}
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-name-${i + 1}`
+                  }
+                >
+                  {product.name}
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-quantity-${i + 1}`
+                  }
+                >
+                  quantidade
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-unit-price-${i + 1}`
+                  }
+                >
+                  {product.price}
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-subtotal-${i + 1}`
+                  }
+                >
+                  subtotal
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
       </table>
+      <span data-testid="seller_order_details__element-order-total-price">
+        Total: R$
+        {orderInfo.totalPrice}
+      </span>
     </section>
   );
 }

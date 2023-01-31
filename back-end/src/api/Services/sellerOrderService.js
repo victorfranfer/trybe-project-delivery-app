@@ -8,7 +8,10 @@ const getOrderBySellerId = async (id) => {
 const getOrderById = async (id) => {
   const saleById = await Sale.findAll(
     { where: { id },
-      include: [{ model: Product, as: 'products', through: { attributes: [] } }],
+      include: [
+        { model: Product, as: 'products', through: { attributes: [] } },
+        // { model: SaleProduct, as: 'saleproduct', through: { attributes: [] } }
+      ],
     });
   return saleById;
 }
