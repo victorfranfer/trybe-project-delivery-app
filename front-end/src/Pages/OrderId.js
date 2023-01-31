@@ -42,6 +42,8 @@ function OrderId() {
     return <p>Carregando...</p>;
   }
 
+  const testId = 'customer_order_details';
+
   return (
     <>
       <Header />
@@ -54,7 +56,7 @@ function OrderId() {
               {order.id}
             </p>
             <p
-              data-testid="customer_order_details__element-order-details-label-seller-name"
+              data-testid={ `${testId}__element-order-details-label-seller-name` }
             >
               P. Vend:
               {order.seller.name}
@@ -66,13 +68,15 @@ function OrderId() {
             </p>
             <p
               data-testid={
-                  `customer_order_details__element-order-details-label-delivery-status${order.status}` }
+                `${testId}__element-order-details-label-delivery-status${order.status}`
+              }
             >
               {order.status}
             </p>
             <button
-              disabled={updated}
-              onClick={updateStatus}
+              type="button"
+              disabled={ updated }
+              onClick={ updateStatus }
               data-testid="customer_order_details__button-delivery-check"
             >
               MARCAR COMO ENTREGUE
@@ -90,37 +94,44 @@ function OrderId() {
               </tr>
             </thead>
             {order.products.map((product, index) => (
-              <tbody key={`element-table-key-${index}`}>
+              <tbody key={ `element-table-key-${index}` }>
                 <tr>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-item-number-${index}`}
+                      `customer_order_details__element-order-table-item-number-${index}`
+                    }
                   >
                     {index + 1}
                   </td>
                   <td
-                    data-testid={`customer_order_details__element-order-table-name-${index}`}
+                    data-testid={
+                      `customer_order_details__element-order-table-name-${index}`
+                    }
                   >
                     {product.name}
                   </td>
                   <td
-                    data-testid={`customer_order_details__element-order-table-quantity-${index}`}
+                    data-testid={
+                      `customer_order_details__element-order-table-quantity-${index}`
+                    }
                   >
                     {product.SaleProduct.quantity}
                   </td>
                   <td
-                    data-testid={`ustomer_order_details__element-order-table-unit-price-${index}`}
+                    data-testid={
+                      `customer_order_details__element-order-table-unit-price-${index}`
+                    }
                   >
-                    {product.price.toLocaleString("pt-br", {
-                      minimumFractionDigits: 2,
-                    })}
+                    {product.price.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
                   </td>
                   <td
-                    data-testid={`customer_order_details__element-order-table-sub-total-${index}`}
+                    data-testid={
+                      `customer_order_details__element-order-table-sub-total-${index}`
+                    }
                   >
                     {(
                       product.price * product.SaleProduct.quantity
-                    ).toLocaleString("pt-br", { minimumFractionDigits: 2 })}
+                    ).toLocaleString('pt-br', { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
               </tbody>
@@ -128,10 +139,11 @@ function OrderId() {
           </table>
         </div>
         <p data-testid="customer_order_details__element-order-total-price">
-          Total:{" "}
-          {Number(order.totalPrice).toLocaleString("pt-br", {
-            style: "currency",
-            currency: "BRL",
+          Total:
+          {' '}
+          {Number(order.totalPrice).toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
           })}
         </p>
       </section>

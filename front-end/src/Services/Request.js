@@ -7,12 +7,12 @@ const api = axios.create({
 export const get = async (endpoint) => {
   const { data } = await api.get(endpoint);
   return data;
-}
+};
 
 export const put = async (endpoint, body) => {
   const { data } = await api.put(endpoint, body);
   return data;
-}
+};
 
 export const requestRegister = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
