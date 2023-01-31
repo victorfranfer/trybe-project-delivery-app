@@ -55,7 +55,7 @@ export default function OrdersItem() {
                 <span
                   data-testid={ `customer_orders__element-card-price-${element.id}` }
                 >
-                  {element.totalPrice}
+                  {(`${element.totalPrice}`).replace('.', ',')}
                 </span>
               </div>
             </button>
