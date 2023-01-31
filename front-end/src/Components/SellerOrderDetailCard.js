@@ -13,8 +13,8 @@ export default function SellerOrderDetailCard() {
       console.log(id);
       const order = await getProductSale(`/seller/orders/${id}`, { params: id });
       console.log(order);
-      setOrderInfo(order[0]);
-      setProducts(order[0].products);
+      setOrderInfo(order);
+      setProducts(order.products);
     };
     fetchOrders();
   }, []);
@@ -85,7 +85,7 @@ export default function SellerOrderDetailCard() {
                     `seller_order_details__element-order-table-quantity-${i + 1}`
                   }
                 >
-                  quantidade
+                  {product.SaleProduct.quantity}
                 </td>
                 <td
                   data-testid={
@@ -99,7 +99,7 @@ export default function SellerOrderDetailCard() {
                     `seller_order_details__element-order-table-subtotal-${i + 1}`
                   }
                 >
-                  subtotal
+                  {(product.SaleProduct.quantity * product.price).toFixed(2)}
                 </td>
               </tr>
             ))
