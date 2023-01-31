@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import Header from '../Components/Header';
 import { AppContext } from '../Context/provider';
 import {
@@ -60,18 +60,12 @@ function ClientCheckout() {
         deliveryAddress: address,
         deliveryNumber: residenceNumber,
       };
-
-<<<<<<< HEAD
       const { saleId } = await createNewSale('/sale/register-order', body);
       saveCart([]);
       history.push(`/customer/orders/${saleId}`);
     } catch (err) {
       Redirect('/login');
     }
-=======
-    const { saleId } = await createNewSale('/sale/register-order', body);
-    history.push(`/customer/orders/${saleId}`);
->>>>>>> 1d61408b (fix)
   };
 
   return (
