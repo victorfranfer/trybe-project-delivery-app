@@ -5,21 +5,18 @@ import { getProductSale } from '../Services/Request';
 export default function SellerOrderDetailCard() {
   const [orderInfo, setOrderInfo] = useState({});
   const [products, setProducts] = useState([]);
+  const [disabled, setDisabled] = useState(true);
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchOrders = async () => {
-      console.log(id);
       const order = await getProductSale(`/seller/orders/${id}`, { params: id });
-      console.log(order);
       setOrderInfo(order);
       setProducts(order.products);
     };
     fetchOrders();
   }, []);
-
-  console.log(products);
 
   function formattedCurrentDate(data) {
     const newDate = new Date(data);
@@ -29,6 +26,13 @@ export default function SellerOrderDetailCard() {
     const mesF = (mes.length === 1) ? `0${mes}` : mes;
     const anoF = newDate.getFullYear();
     return `${diaF}/${mesF}/${anoF}`;
+  }
+
+  function formatPrice(price) {
+    console.log(orderInfo.totalPrice);
+    const totalPrice = JSON.stringify(price);
+    console.log(totalPrice);
+    return totalPrice;
   }
 
   return (
@@ -49,7 +53,11 @@ export default function SellerOrderDetailCard() {
       <button type="button" data-testid="seller_order_details__button-preparing-check">
         Preparar pedido
       </button>
-      <button type="button" data-testid="seller_order_details__button-dispatch-check">
+      <button
+        type="button"
+        data-testid="seller_order_details__button-dispatch-check"
+        disabled={ disabled }
+      >
         Saiu para entrega
       </button>
       <table>
@@ -106,10 +114,12 @@ export default function SellerOrderDetailCard() {
           }
         </tbody>
       </table>
-      <span data-testid="seller_order_details__element-order-total-price">
-        Total: R$
-        {orderInfo.totalPrice}
-      </span>
+      <div>
+        <span>Total: R$ </span>
+        <span data-testid="seller_order_details__element-order-total-price">
+          {formatPrice(orderInfo.totalPrice)}
+        </span>
+      </div>
     </section>
   );
 }
