@@ -9,6 +9,7 @@ import SellerOrders from './Pages/SellerOrders';
 import Admin from './Pages/Admin';
 import ClientCheckout from './Pages/ClientCheckout';
 import OrderId from './Pages/OrderId';
+import SellerOrderDetails from './Pages/SellerOrderDetails';
 import { getCart } from './Services/Storage';
 import { AppContext } from './Context/provider';
 
@@ -38,6 +39,7 @@ function App() {
       <Route exact path="/login" component={ Login } />
       <Route exact path="/customer/products" component={ Products } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
+      <Route exact path="/seller/orders/:id" component={ SellerOrderDetails } />
       <Route exact path="/admin/manage" component={ Admin } />
       <Route exact path="/customer/orders" component={ Orders } />
       <Route exact path="/customer/orders/:id" component={ OrderId } />

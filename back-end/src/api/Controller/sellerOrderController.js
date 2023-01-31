@@ -9,7 +9,7 @@ const getAllBySellerId = async (req, res) => {
 };
 
 const getOrderById = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const order = await orderService.getOrderById(id);
   console.log(order);
 

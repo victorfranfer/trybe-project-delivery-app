@@ -8,7 +8,6 @@ const orderRouter = require('./orderRouter');
 const sellerOrderRouter = require('./sellerOrderRouter');
 const adminCreateUserRouter = require('./adminCreateUserRouter');
 const userRouter = require('./userRouter');
-const sellerOrderDetailRouter = require('./sellerOrderDetailRouter');
 
 const router = express.Router();
 
@@ -20,7 +19,6 @@ router.use('/user', userRouter);
 
 router.use('/customer', orderRouter);
 router.use('/seller', sellerOrderRouter);
-router.use('/seller/orders', sellerOrderDetailRouter);
 router.use('/admin/manage', adminCreateUserRouter);
 router.use('/validate', validateTokenMiddleware, (_req, res) => {
   res.status(201).json({ message: 'ok' });

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { requestOrders } from '../Services/Request';
+import { useParams } from 'react-router-dom';
+import { getProductSale } from '../Services/Request';
 
 export default function SellerOrderDetailCard() {
   const [orderId, setOrderId] = useState([]);
 
+  const { id } = useParams();
+
   useEffect(() => {
     const fetchOrders = async () => {
-      const { id } = getUserInfo();
-      const orders = await requestOrders(`/seller/orders/${id}`, { id });
-      console.log('cheguei');
-      setOrderId(orders);
+      console.log(id);
+      const order = await getProductSale('/seller/orders/', { params: id });
+      console.log(order);
+      setOrderId(order);
     };
     fetchOrders();
   }, []);

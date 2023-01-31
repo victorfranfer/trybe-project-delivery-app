@@ -24,14 +24,20 @@ const getCart = () => {
   return cart;
 };
 
-const saveOrder = (order) => {
-  localStorage.setItem('order', JSON.stringify(order));
-};
+// const saveOrder = (order) => {
+//   localStorage.setItem('order', JSON.stringify(order));
+// };
+
+// const getOrderInfo = () => {
+//   const userInfo = JSON.parse(localStorage.getItem('order'));
+//   return userInfo;
+// };
 
 module.exports = {
   saveUserInfo,
   getUserInfo,
   saveCart,
   getCart,
-  saveOrder,
+  // saveOrder,
+  // getOrderInfo,
 };

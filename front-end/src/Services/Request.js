@@ -30,6 +30,11 @@ export const createNewSale = async (endpoint, body) => {
   return data;
 };
 
+export const getProductSale = async (endpoint, params) => {
+  const { data } = await api.get(endpoint, params);
+  return data;
+};
+
 export const requestAdminRegister = async (endpoint, body, headers) => {
   const { data } = await api.post(endpoint, body, headers);
   return data;

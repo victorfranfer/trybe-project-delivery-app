@@ -51,7 +51,12 @@ function Login() {
       const userInfo = getUserInfo();
 
       if (userInfo.token) {
-        navigate.push('/customer/products');
+        if (userInfo.role === 'customer') {
+          navigate.push('/customer/products');
+        }
+        if (userInfo.role === 'seller') {
+          navigate.push('/seller/orders');
+        }
       }
 
       if (data.password.length >= minLengthPassword
