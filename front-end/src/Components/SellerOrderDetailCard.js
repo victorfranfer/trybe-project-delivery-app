@@ -34,7 +34,7 @@ export default function SellerOrderDetailCard() {
   return (
     <section className="order-detail">
       <p>Detalhe do Pedido</p>
-      <span data-testid="seller_order_details__element-order-details-label-ordr-id">
+      <span data-testid="seller_order_details__element-order-details-label-order-id">
         Pedido
         { orderInfo.id }
       </span>
@@ -49,7 +49,7 @@ export default function SellerOrderDetailCard() {
       <button type="button" data-testid="seller_order_details__button-preparing-check">
         Preparar pedido
       </button>
-      <button type="button" data-testid="seller_order_details___button-dispatch-check">
+      <button type="button" data-testid="seller_order_details__button-dispatch-check">
         Saiu para entrega
       </button>
       <table>
