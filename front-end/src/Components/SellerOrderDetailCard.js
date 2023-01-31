@@ -5,7 +5,7 @@ import { getProductSale } from '../Services/Request';
 export default function SellerOrderDetailCard() {
   const [orderInfo, setOrderInfo] = useState({});
   const [products, setProducts] = useState([]);
-  const [disabled, setDisabled] = useState(true);
+  // const [disabled, setDisabled] = useState(true);
 
   const { id } = useParams();
 
@@ -29,10 +29,10 @@ export default function SellerOrderDetailCard() {
   }
 
   function formatPrice(price) {
-    console.log(orderInfo.totalPrice);
-    const totalPrice = JSON.stringify(price);
-    console.log(totalPrice);
-    return totalPrice;
+    const totalPrice = price;
+    if (totalPrice) {
+      return totalPrice.replace('.', ',');
+    }
   }
 
   return (
@@ -56,7 +56,7 @@ export default function SellerOrderDetailCard() {
       <button
         type="button"
         data-testid="seller_order_details__button-dispatch-check"
-        disabled={ disabled }
+        disabled
       >
         Saiu para entrega
       </button>
