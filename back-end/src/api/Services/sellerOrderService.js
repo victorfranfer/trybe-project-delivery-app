@@ -12,9 +12,10 @@ const getOrderById = async (id) => {
         { model: Product, as: 'products', through: { attributes: [] } },
         // { model: SaleProduct, as: 'saleproduct', through: { attributes: [] } }
       ],
-    });
+    }
+  );
   return saleById;
-}
+};
 
   module.exports = {
     getOrderBySellerId,

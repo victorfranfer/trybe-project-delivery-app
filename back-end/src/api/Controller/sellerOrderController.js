@@ -14,7 +14,7 @@ const getOrderById = async (req, res) => {
   console.log(order);
 
   return res.status(200).json(order);
-}
+};
 
 module.exports = {
   getAllBySellerId,
