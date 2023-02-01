@@ -110,6 +110,14 @@ const adminCreateUser = async (userForCreate, { ...loggedUser }) => {
   if (newUser) return newUser.dataValues;
 };
 
+const deleteUser = async (email) => {
+  await User.destroy({ where: { email } });
+
+  const users = getAllUsers();
+
+  return users;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
@@ -117,4 +125,5 @@ module.exports = {
   getAllSellers,
   adminCreateUser,
   getAllUsers,
+  deleteUser,
 };
