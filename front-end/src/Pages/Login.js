@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { requestLogin, setToken } from '../Services/Request';
 import { LoginForm, FilledButton, UnfilledButton, LoginPage } from './Styles/login';
 import { saveUserInfo, getUserInfo } from '../Services/Storage';
+import { LoginForm, FilledButton, UnfilledButton, LoginPage } from './Styles/login';
 
 function Login() {
   const [data, setData] = useState({ email: '', password: '' });
