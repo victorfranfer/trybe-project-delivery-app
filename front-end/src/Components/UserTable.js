@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { UserTableContext } from '../Context/UserTableContex';
 import { requestAllUsers } from '../Services/Request';
 import { getUserInfo } from '../Services/Storage';
 
 export default function UserTable() {
+  const { users, setUsers } = useContext(UserTableContext);
+
   useEffect(() => {
     const getUsers = async () => {
       const { token } = getUserInfo();
 
-      const users = await requestAllUsers(
+      const usersRequested = await requestAllUsers(
         '/user',
         { headers: { Authorization: token } },
       );
+
+      setUsers(usersRequested);
     };
     getUsers();
   }, []);
