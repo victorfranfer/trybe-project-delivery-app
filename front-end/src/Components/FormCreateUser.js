@@ -12,7 +12,7 @@ export default function FormCreateUser() {
   });
   const [disable, setDisable] = useState(true);
 
-  const { setCreateUserError } = useContext(AdminContext);
+  const { setCreateUserError, setUsers } = useContext(AdminContext);
 
   useEffect(() => {
     const handleEnableButton = () => {
@@ -28,15 +28,25 @@ export default function FormCreateUser() {
     handleEnableButton();
   }, [data]);
 
+  const handleUserCreated = (newUser) => {
+    delete newUser.id;
+    delete newUser.password;
+
+    setUsers((prevState) => [
+      ...prevState, newUser,
+    ]);
+  };
+
   const handleClick = async () => {
     const { token } = getUserInfo();
 
     try {
-      await requestAdminRegister(
+      const userCreated = await requestAdminRegister(
         '/admin/manage',
         data,
         { headers: { Authorization: token } },
       );
+      handleUserCreated(userCreated);
     } catch (error) {
       setCreateUserError(true);
     }

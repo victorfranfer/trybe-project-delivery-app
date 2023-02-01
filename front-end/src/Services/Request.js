@@ -59,6 +59,11 @@ export const requestAllUsers = async (endpoint, headers) => {
   return data;
 };
 
+export const requestDeleteUser = async (endpoint, body, headers) => {
+  const { data } = await api.delete(endpoint, body, headers);
+  return data;
+};
+
 // export const requestToken = async () => {
 //   const { error } = await api.post('/validate');
 //   return error;
