@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProductSale } from '../Services/Request';
+import { getProductSale, put } from '../Services/Request';
 
 export default function SellerOrderDetailCard() {
   const [orderInfo, setOrderInfo] = useState({});
   const [products, setProducts] = useState([]);
-  // const [disabled, setDisabled] = useState(true);
+  const [reload, setReload] = useState(0);
+  const [preparingDisabled, setPreparingDisabled] = useState(false);
+  const [deliveryDisabled, setDeliveryDisabled] = useState(true);
 
   const { id } = useParams();
 
@@ -14,9 +16,17 @@ export default function SellerOrderDetailCard() {
       const order = await getProductSale(`/seller/orders/${id}`, { params: id });
       setOrderInfo(order);
       setProducts(order.products);
+      if (order.status === 'Preparando') {
+        setPreparingDisabled(true);
+        setDeliveryDisabled(false);
+      }
+      if (order.status === 'Em Trânsito' || order.status === 'Entregue') {
+        setPreparingDisabled(true);
+        setDeliveryDisabled(true);
+      }
     };
     fetchOrders();
-  }, []);
+  }, [reload]);
 
   function formattedCurrentDate(data) {
     const newDate = new Date(data);
@@ -35,6 +45,21 @@ export default function SellerOrderDetailCard() {
     }
   }
 
+  const updateStatus = async () => {
+    if (!preparingDisabled) {
+      await put(`/sale/order/${id}`, { status: 'Preparando' });
+      setReload((prev) => prev + 1);
+      setPreparingDisabled(true);
+      setDeliveryDisabled(false);
+    }
+    if (!deliveryDisabled) {
+      await put(`/sale/order/${id}`, { status: 'Em Trânsito' });
+      setReload((prev) => prev + 1);
+      setPreparingDisabled(true);
+      setDeliveryDisabled(true);
+    }
+  };
+
   return (
     <section className="order-detail">
       <p>Detalhe do Pedido</p>
@@ -50,13 +75,19 @@ export default function SellerOrderDetailCard() {
       >
         { orderInfo.status }
       </span>
-      <button type="button" data-testid="seller_order_details__button-preparing-check">
+      <button
+        type="button"
+        data-testid="seller_order_details__button-preparing-check"
+        onClick={ updateStatus }
+        disabled={ preparingDisabled }
+      >
         Preparar pedido
       </button>
       <button
         type="button"
         data-testid="seller_order_details__button-dispatch-check"
-        disabled
+        onClick={ updateStatus }
+        disabled={ deliveryDisabled }
       >
         Saiu para entrega
       </button>
