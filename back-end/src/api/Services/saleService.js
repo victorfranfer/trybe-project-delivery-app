@@ -41,7 +41,26 @@ const createNewSale = async (sale) => {
   return newSale;
 };
 
+const updateSaleById = async (id, body) => {
+  console.log(body);
+  if (!body.status) {
+    const [updatedSale] = await Sale.update(
+      { status: 'Entregue' },
+      { where: { id } }, 
+    );
+
+    return updatedSale;
+  }
+  const [updatedSale] = await Sale.update(
+    { status: body.status },
+    { where: { id } },
+  );
+
+  return updatedSale;
+};
+
 module.exports = {
   getSaleById,
   createNewSale,
+  updateSaleById,
 };

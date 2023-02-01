@@ -4,6 +4,16 @@ const api = axios.create({
   baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
 });
 
+export const get = async (endpoint) => {
+  const { data } = await api.get(endpoint);
+  return data;
+};
+
+export const put = async (endpoint, body) => {
+  const { data } = await api.put(endpoint, body);
+  return data;
+};
+
 export const requestRegister = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
   return data;
@@ -15,7 +25,6 @@ export const requestProducts = async (endpoint) => {
 };
 
 export const requestOrders = async (endpoint, body) => {
-  console.log(body);
   const { data } = await api.post(endpoint, body);
   return data;
 };
@@ -27,6 +36,11 @@ export const requestLogin = async (endpoint, body) => {
 
 export const createNewSale = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
+  return data;
+};
+
+export const getProductSale = async (endpoint, params) => {
+  const { data } = await api.get(endpoint, params);
   return data;
 };
 

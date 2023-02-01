@@ -12,12 +12,11 @@ export default function SellerHeader() {
       >
         Pedidos
       </Link>
-      <Link
+      <span
         data-testid="customer_products__element-navbar-user-full-name"
-        to="/"
       >
         { name }
-      </Link>
+      </span>
       <Link
         data-testid="customer_products__element-navbar-link-logout"
         to="/"
