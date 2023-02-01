@@ -22,7 +22,6 @@ function App() {
     };
     /*
     const userInfo = getUserInfo();
-    console.log(userInfo.token);
     if (!userInfo.token) {
       redirect('/login');
     }
