@@ -23,7 +23,6 @@ function OrderId() {
   useEffect(() => {
     const getSale = async () => {
       const newOrder = await get(`/sale/order/${id}`);
-      console.log(newOrder);
       setOrder(newOrder);
       if (newOrder.status !== 'em transito') {
         setUpdated(true);
@@ -33,17 +32,18 @@ function OrderId() {
   }, [reload]);
 
   const updateStatus = async () => {
-    // setOrder(false);
     setUpdated(true);
     await put(`/sale/order/${id}`);
     setReload((prev) => prev + 1);
   };
 
+  const testId = 'customer_order_details';
+
+  console.log(order);
+
   if (!order) {
     return <p>Carregando...</p>;
   }
-
-  const testId = 'customer_order_details';
 
   return (
     <>
@@ -84,7 +84,7 @@ function OrderId() {
             </button>
           </div>
           {
-            order.map((product, index) => (
+            order.products.map((product, index) => (
               <OrderDetailTable
                 key={ `${product.name}-${index}` }
                 product={ product }
