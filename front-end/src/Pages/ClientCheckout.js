@@ -61,8 +61,8 @@ function ClientCheckout() {
         deliveryNumber: residenceNumber,
       };
       const { saleId } = await createNewSale('/sale/register-order', body);
-      history.push(`/customer/orders/${saleId}`);
       saveCart([]);
+      history.push(`/customer/orders/${saleId}`);
     } catch (err) {
       Redirect('/login');
     }

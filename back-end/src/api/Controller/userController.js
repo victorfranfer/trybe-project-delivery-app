@@ -11,7 +11,7 @@ const userService = require('../Services/userService');
 
     const user = await userService.getUserByEmail(email);
 
-    res.status(200).json(user);
+    res.status(201).json(user);
   };
 
 module.exports = {

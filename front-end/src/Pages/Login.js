@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestLogin, setToken } from '../Services/Request';
-import { saveUserInfo } from '../Services/Storage';
+import { saveUserInfo, getUserInfo } from '../Services/Storage';
 
 function Login() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -31,6 +31,7 @@ function Login() {
         { email, password },
       );
       setToken(userInfo.token);
+
       saveInfoAndRedirect(userInfo);
     } catch (error) {
       setLoginError(true);
@@ -46,6 +47,17 @@ function Login() {
     const handleEnableButton = () => {
       const emailRegex = /^[a-z0-9._-]+@[a-z0-9]+\.[a-z]/i;
       const minLengthPassword = 6;
+
+      const userInfo = getUserInfo();
+
+      if (userInfo.token) {
+        if (userInfo.role === 'customer') {
+          navigate.push('/customer/products');
+        }
+        if (userInfo.role === 'seller') {
+          navigate.push('/seller/orders');
+        }
+      }
 
       if (data.password.length >= minLengthPassword
         && emailRegex.test(data.email)) setDisable(false);

@@ -20,7 +20,6 @@ export default function Header() {
       </Link>
       <p
         data-testid="customer_products__element-navbar-user-full-name"
-        to="/"
       >
         { name }
       </p>
