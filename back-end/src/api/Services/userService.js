@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { User } = require('../../database/models');
 const { hashPassword } = require('../Utils/jwtUtils');
 
@@ -47,6 +48,11 @@ const getAllSellers = async () => {
 
 const getAllUsers = async () => {
   const users = await User.findAll({
+    where: {
+      role: {
+        [Op.not]: 'administrator'
+      }
+    },
     attributes: ['name', 'email', 'role'],
   });
 
