@@ -54,7 +54,7 @@ export default function ProductCard({ product }) {
 
   const removeItem = () => {
     setQuantity((prev) => {
-      if (prev === 0 || prev === 1) {
+      if (prev === 0) {
         return 0;
       }
       return prev - 1;
