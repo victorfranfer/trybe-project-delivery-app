@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, memo } from 'react';
 import { AdminContext } from '../Context/AdminContex';
-import { requestAllUsers } from '../Services/Request';
+import { requestAllUsers, requestDeleteUser } from '../Services/Request';
 import { getUserInfo } from '../Services/Storage';
 
 function UserTable() {
@@ -19,6 +19,17 @@ function UserTable() {
     };
     getUsers();
   }, []);
+
+  const handleClick = async (email) => {
+    const { token } = getUserInfo();
+
+    await requestDeleteUser(
+      '/user',
+      { email },
+      { headers: { Authorization: token } },
+    );
+  };
+
   return (
     <section>
       <table>
@@ -52,7 +63,12 @@ function UserTable() {
                   { user.role === 'seller' ? 'P.Vendedora' : 'Cliente' }
                 </td>
                 <td data-testid={ `admin_manage__element-user-table-remove-${index}` }>
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={ ({ target: { parentNode: { previousSibling } } }) => {
+                      handleClick(previousSibling.previousSibling.innerHTML);
+                    } }
+                  >
                     Excluir
                   </button>
                 </td>
