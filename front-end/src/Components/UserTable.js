@@ -1,9 +1,16 @@
 import React, { useEffect } from 'react';
+import { requestAllUsers } from '../Services/Request';
+import { getUserInfo } from '../Services/Storage';
 
 export default function UserTable() {
   useEffect(() => {
-    const getUsers = () => {
+    const getUsers = async () => {
+      const { token } = getUserInfo();
 
+      const users = await requestAllUsers(
+        '/user',
+        { headers: { Authorization: token } },
+      );
     };
     getUsers();
   }, []);
@@ -18,7 +25,7 @@ export default function UserTable() {
           <th>Excluir</th>
         </tr>
         {
-          users.map((user, index) => (
+          users && (users.map((user, index) => (
             <tr key={ index }>
               <td data-testid={ `admin_manage__element-user-table-item-number-${index}` }>
                 { index + 1 }
@@ -38,7 +45,7 @@ export default function UserTable() {
                 </button>
               </td>
             </tr>
-          ))
+          )))
         }
       </table>
     </section>
