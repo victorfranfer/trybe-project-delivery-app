@@ -41,7 +41,17 @@ const createNewSale = async (sale) => {
   return newSale;
 };
 
+const updateSaleById = async (id) => {
+  const [updatedSale] = await Sale.update(
+    { status: 'entregue' },
+    { where: { id } }, 
+  );
+
+  return updatedSale;
+};
+
 module.exports = {
   getSaleById,
   createNewSale,
+  updateSaleById,
 };
