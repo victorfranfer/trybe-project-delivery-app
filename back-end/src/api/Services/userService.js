@@ -45,6 +45,14 @@ const getAllSellers = async () => {
   return sellers;
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll({
+    attributes: ['name', 'email', 'role'],
+  });
+
+  return users;
+}
+
 const createUser = async (user) => {
   const editUser = { ...user };
   
@@ -102,4 +110,5 @@ module.exports = {
   getUserById,
   getAllSellers,
   adminCreateUser,
+  getAllUsers,
 };

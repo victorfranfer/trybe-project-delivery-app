@@ -14,7 +14,14 @@ const userService = require('../Services/userService');
     res.status(201).json(user);
   };
 
+  const getAllUsers = async (req, res) => {
+    const users = await userService.getAllUsers();
+
+    return res.status(200).json(users);
+  }
+
 module.exports = {
   getSellers,
   getUserByEmail,
+  getAllUsers,
 };
