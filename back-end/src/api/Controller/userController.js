@@ -20,8 +20,17 @@ const userService = require('../Services/userService');
     return res.status(200).json(users);
   }
 
+  const deleteUser = async (req, res) => {
+    const { email } = req.body;
+
+    const users = await userService.deleteUser(email);
+
+    return res.status(200).json(users);
+  }
+
 module.exports = {
   getSellers,
   getUserByEmail,
   getAllUsers,
+  deleteUser,
 };

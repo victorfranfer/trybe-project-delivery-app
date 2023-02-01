@@ -23,11 +23,15 @@ function UserTable() {
   const handleClick = async (email) => {
     const { token } = getUserInfo();
 
-    await requestDeleteUser(
+    const usersWithoutDeleted = await requestDeleteUser(
       '/user',
-      { email },
-      { headers: { Authorization: token } },
+      {
+        data: { email },
+        headers: { Authorization: token },
+      },
     );
+
+    setUsers(usersWithoutDeleted);
   };
 
   return (
