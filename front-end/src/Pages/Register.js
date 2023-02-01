@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestRegister } from '../Services/Request';
 import { saveUserInfo } from '../Services/Storage';
+import { FilledButton, LoginForm, LoginPage } from './Styles/login';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -47,8 +48,8 @@ export default function Register() {
   }
 
   return (
-    <div>
-      <form>
+    <LoginPage>
+      <LoginForm>
         <label htmlFor="input-name">
           Nome
           <input
@@ -80,24 +81,24 @@ export default function Register() {
             onChange={ ({ target }) => setPassword(target.value) }
           />
         </label>
-        <div>
-          <button
-            disabled={ !(name.length >= Number('12')
-              && validEmail
-              && password.length >= Number('6')) }
-            type="button"
-            data-testid="common_register__button-register"
-            onClick={ HandleClick }
-          >
+        <button
+          disabled={ !(name.length >= Number('12')
+            && validEmail
+            && password.length >= Number('6')) }
+          type="button"
+          data-testid="common_register__button-register"
+          onClick={ HandleClick }
+        >
+          <FilledButton>
             CADASTRAR
-          </button>
-        </div>
-      </form>
+          </FilledButton>
+        </button>
+      </LoginForm>
       { requestError && (
         <p data-testid="common_register__element-invalid_register">
           Falha ao fazer cadastro!
         </p>
       ) }
-    </div>
+    </LoginPage>
   );
 }

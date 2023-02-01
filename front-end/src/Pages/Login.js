@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestLogin, setToken } from '../Services/Request';
 import { saveUserInfo } from '../Services/Storage';
+import { LoginForm, FilledButton, UnfilledButton, LoginPage } from './Styles/login';
 
 function Login() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -56,14 +57,14 @@ function Login() {
   }, [data]);
 
   return (
-    <div>
+    <LoginPage>
       <div>
         <img src="" alt="Logo do app" />
       </div>
       <div>
-        <form>
+        <LoginForm>
           <label htmlFor="email">
-            Login:
+            Login
             <input
               type="email"
               name="email"
@@ -80,23 +81,26 @@ function Login() {
               onChange={ handleChange }
             />
           </label>
-
           <button
             type="button"
             data-testid="common_login__button-login"
             disabled={ disable }
             onClick={ HandleClick }
           >
-            LOGIN
+            <FilledButton>
+              LOGIN
+            </FilledButton>
           </button>
           <button
             type="button"
             data-testid="common_login__button-register"
             onClick={ () => navigate.push('/register') }
           >
-            Ainda não tenho conta
+            <UnfilledButton>
+              Ainda não tenho conta
+            </UnfilledButton>
           </button>
-        </form>
+        </LoginForm>
       </div>
       {
         loginError && (
@@ -107,7 +111,7 @@ function Login() {
           </div>
         )
       }
-    </div>
+    </LoginPage>
   );
 }
 
