@@ -54,6 +54,11 @@ export const requestUser = async (endpoint, body) => {
   return data;
 };
 
+export const requestAllUsers = async (endpoint, headers) => {
+  const { data } = await api.get(endpoint, headers);
+  return data;
+};
+
 // export const requestToken = async () => {
 //   const { error } = await api.post('/validate');
 //   return error;
