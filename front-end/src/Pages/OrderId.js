@@ -24,7 +24,7 @@ function OrderId() {
     const getSale = async () => {
       const newOrder = await get(`/sale/order/${id}`);
       setOrder(newOrder);
-      if (newOrder.status !== 'em transito') {
+      if (newOrder.status !== 'Em Trânsito') {
         setUpdated(true);
       }
     };

@@ -41,10 +41,19 @@ const createNewSale = async (sale) => {
   return newSale;
 };
 
-const updateSaleById = async (id) => {
+const updateSaleById = async (id, body) => {
+  console.log(body);
+  if (!body.status) {
+    const [updatedSale] = await Sale.update(
+      { status: 'Entregue' },
+      { where: { id } }, 
+    );
+
+    return updatedSale;
+  }
   const [updatedSale] = await Sale.update(
-    { status: 'entregue' },
-    { where: { id } }, 
+    { status: body.status },
+    { where: { id } },
   );
 
   return updatedSale;

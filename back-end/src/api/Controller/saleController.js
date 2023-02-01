@@ -17,7 +17,8 @@ const createOrder = async (req, res) => {
 
 const updateSaleByIdController = async (req, res) => {
   const { id } = req.params;
-  const updatedSale = await updateSaleById(Number(id));
+  const { status } = req.body;
+  const updatedSale = await updateSaleById(Number(id), { status });
 
   res.status(201).json(updatedSale);
 };
