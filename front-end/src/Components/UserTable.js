@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, memo } from 'react';
-import { UserTableContext } from '../Context/UserTableContex';
+import { AdminContext } from '../Context/AdminContex';
 import { requestAllUsers } from '../Services/Request';
 import { getUserInfo } from '../Services/Storage';
 
 function UserTable() {
-  const { users, setUsers } = useContext(UserTableContext);
+  const { users, setUsers } = useContext(AdminContext);
 
   useEffect(() => {
     const getUsers = async () => {

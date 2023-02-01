@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
 import { requestAdminRegister } from '../Services/Request';
 import { getUserInfo } from '../Services/Storage';
+import { AdminContext } from '../Context/AdminContex';
 
-export default function FormCreateUser({ setCreateUserError }) {
+export default function FormCreateUser() {
   const [data, setData] = useState({
     name: '',
     email: '',
@@ -11,6 +11,8 @@ export default function FormCreateUser({ setCreateUserError }) {
     role: 'seller',
   });
   const [disable, setDisable] = useState(true);
+
+  const { setCreateUserError } = useContext(AdminContext);
 
   useEffect(() => {
     const handleEnableButton = () => {
@@ -94,7 +96,3 @@ export default function FormCreateUser({ setCreateUserError }) {
     </section>
   );
 }
-
-FormCreateUser.propTypes = {
-  setCreateUserError: PropTypes.func,
-}.isRequired;

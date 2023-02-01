@@ -1,27 +1,30 @@
 import { createContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export const UserTableContext = createContext([]);
+export const AdminContext = createContext([]);
 
-export function UserTableProvider({ children }) {
+export function AdminProvider({ children }) {
   const [users, setUsers] = useState([]);
+  const [createUserError, setCreateUserError] = useState(false);
 
   const value = useMemo(
     () => ({
       users,
+      createUserError,
       setUsers,
+      setCreateUserError,
     }),
-    [users],
+    [users, createUserError],
   );
 
   return (
-    <UserTableContext.Provider value={ value }>
+    <AdminContext.Provider value={ value }>
       {children}
-    </UserTableContext.Provider>
+    </AdminContext.Provider>
   );
 }
 
-UserTableProvider.propTypes = {
+AdminProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
