@@ -50,14 +50,14 @@ const getAllUsers = async () => {
   const users = await User.findAll({
     where: {
       role: {
-        [Op.not]: 'administrator'
-      }
+        [Op.not]: 'administrator',
+      },
     },
     attributes: ['name', 'email', 'role'],
   });
 
   return users;
-}
+};
 
 const createUser = async (user) => {
   const editUser = { ...user };
