@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { User } = require('../../database/models');
 const { hashPassword } = require('../Utils/jwtUtils');
 
@@ -43,6 +44,19 @@ const getAllSellers = async () => {
   });
 
   return sellers;
+};
+
+const getAllUsers = async () => {
+  const users = await User.findAll({
+    where: {
+      role: {
+        [Op.not]: 'administrator',
+      },
+    },
+    attributes: ['name', 'email', 'role'],
+  });
+
+  return users;
 };
 
 const createUser = async (user) => {
@@ -96,10 +110,20 @@ const adminCreateUser = async (userForCreate, { ...loggedUser }) => {
   if (newUser) return newUser.dataValues;
 };
 
+const deleteUser = async (email) => {
+  await User.destroy({ where: { email } });
+
+  const users = getAllUsers();
+
+  return users;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
   getUserById,
   getAllSellers,
   adminCreateUser,
+  getAllUsers,
+  deleteUser,
 };

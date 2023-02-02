@@ -1,7 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { AdminContext } from '../Context/AdminContex';
 
-export default function NameFormCreateUser({ createUserError }) {
+export default function NameFormCreateUser() {
+  const { createUserError } = useContext(AdminContext);
+
   return (
     <section>
       <h2>Cadastrar novo usuário</h2>
@@ -17,7 +19,3 @@ export default function NameFormCreateUser({ createUserError }) {
     </section>
   );
 }
-
-NameFormCreateUser.propTypes = {
-  createUserError: PropTypes.bool,
-}.isRequired;
