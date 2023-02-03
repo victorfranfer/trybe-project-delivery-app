@@ -1,14 +1,12 @@
 const { createNewSaleProduct } = require('../Services/saleProductService');
-const { createNewSale, updateSaleById } = require('../Services/saleService');
+const saleService = require('../Services/saleService');
 
 const createOrder = async (req, res) => {
   const {
     productIds,
   } = req.body;
 
-  const newSale = await createNewSale(req.body);
-
-  await Promise.all([newSale]);
+  const newSale = await saleService.createNewSale(req.body);
 
   await createNewSaleProduct(productIds, newSale.id);
 
@@ -18,7 +16,7 @@ const createOrder = async (req, res) => {
 const updateSaleByIdController = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  const updatedSale = await updateSaleById(Number(id), { status });
+  const updatedSale = await saleService.updateSaleById(Number(id), { status });
 
   res.status(201).json(updatedSale);
 };

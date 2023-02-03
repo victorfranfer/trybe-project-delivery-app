@@ -3,12 +3,8 @@ const fs = require('fs/promises');
 const md5 = require('md5');
 
 const getKey = async () => {
-  try {
     const key = await fs.readFile('jwt.evaluation.key', 'utf8');
     return key;
-  } catch (err) {
-    return err.message;
-  }
 };
 
 const createToken = async (payload) => {

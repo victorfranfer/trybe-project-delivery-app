@@ -1,5 +1,4 @@
 const chai = require('chai');
-const { stub } = require('sinon');
 const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
@@ -63,5 +62,23 @@ describe('Testando as rotas de login', () => {
     const { status } = postLogin;
 
     expect(status).to.be.eq(404);
+  })
+
+  it('Testando se retorna a mensagem ok se o token for válido', async () => {
+
+    let postLogin;
+
+    try {
+      postLogin = await chai.request(app)
+        .get('/validate')
+        .send()
+        .set('authorization', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjc1NDM1MDYzLCJleHAiOjE2NzYwMzk4NjN9.Fc4vr114woz9vylJgcAT0pnxK_tsh8ppJ_cVT4DhDIo")
+    } catch (error) {
+      console.error(error)
+    }
+
+    const { body } = postLogin;
+
+    expect(body.message).to.be.eq("ok");
   })
 })

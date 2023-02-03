@@ -1,15 +1,15 @@
-const orderService = require('../Services/sellerOrderService');
+const sellerOrderService = require('../Services/sellerOrderService');
 
 const getAllBySellerId = async (req, res) => {
   const { id } = req.body;
-  const orders = await orderService.getOrderBySellerId(id);
+  const orders = await sellerOrderService.getOrderBySellerId(id);
 
   return res.status(200).json(orders);
 };
 
 const getOrderById = async (req, res) => {
   const { id } = req.params;
-  const order = await orderService.getOrderById(id);
+  const order = await sellerOrderService.getOrderById(id);
 
   return res.status(200).json(order);
 };

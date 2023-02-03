@@ -39,8 +39,6 @@ function OrderId() {
 
   const testId = 'customer_order_details';
 
-  console.log(order);
-
   if (!order) {
     return <p>Carregando...</p>;
   }

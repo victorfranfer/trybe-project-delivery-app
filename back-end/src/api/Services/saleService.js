@@ -6,8 +6,6 @@ const validateSaleFields = async (sale) => {
   const user = await getUserById(sale.userId);
   const seller = await getUserById(sale.sellerId);
 
-  // const fields = [sale.totalPrice, sale.deliveryAddess, sale.deliveryNumber, sale.quantity];
-
   if (!user) {
     err.message = 'User not fund';
     err.status = 404;
@@ -19,17 +17,7 @@ const validateSaleFields = async (sale) => {
     err.status = 404;
     throw err;
   }
-
-  // if (fields.includes(undefined)) {
-  //   err.message = 'Some fields are missing';
-  //   err.message = 400;
-  // }
 };
-
-// const getSaleById = async (id) => {
-//   const sale = await Sale.findOne({ where: { id } });
-//   return sale;
-// };
 
 const createNewSale = async (sale) => {
   await validateSaleFields(sale);
@@ -38,11 +26,10 @@ const createNewSale = async (sale) => {
 
   const newSale = await Sale.create(saleFields);
 
-  return newSale;
+  return newSale.dataValues;
 };
 
 const updateSaleById = async (id, body) => {
-  console.log(body);
   if (!body.status) {
     const [updatedSale] = await Sale.update(
       { status: 'Entregue' },
@@ -51,6 +38,7 @@ const updateSaleById = async (id, body) => {
 
     return updatedSale;
   }
+
   const [updatedSale] = await Sale.update(
     { status: body.status },
     { where: { id } },
@@ -60,7 +48,6 @@ const updateSaleById = async (id, body) => {
 };
 
 module.exports = {
-  // getSaleById,
   createNewSale,
   updateSaleById,
 };

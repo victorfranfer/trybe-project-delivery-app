@@ -1,7 +1,7 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const chaiHttp = require('chai-http');
-const userService = require('../api/Services/userService');
+const { User } = require('../database/models');
 
 chai.use(chaiHttp);
 
@@ -76,17 +76,16 @@ describe('Testando as rotas de registro', () => {
     expect(body.message).to.be.eq("Invalid password");
   })
 
-  it('Testando se o retorno é correto se o user for criado corretamente', async () => {
-    sinon
-      .stub(userService, "createUser")
+  it('Testando se o retorno é correto se o user for criado corretamente', async () => {    
+    sinon.stub(User, "create")
       .resolves({
-        "id": 5,
+        "id": 4,
         "name": "Teste Lucas Teste",
         "email": "test1@test.com",
         "password": "25f9e794323b453885f5181f1b624d0b",
-        "role": "admin"
-      });
-    
+        "role": "administrator"
+      })
+
     let postRegister;
   
     try {
@@ -96,21 +95,15 @@ describe('Testando as rotas de registro', () => {
           "name": "Teste Lucas Teste",
           "email": "test1@test.com",
           "password": "123456789",
-          "role": "admin"
+          "role": "administrator"
         })
     } catch (error) {
       console.error(error.message)
     }
 
-    const { body } = postRegister;
+    const { status } = postRegister;
 
-    expect(body).to.be.deep.eq({
-      "id": 5,
-      "name": "Teste Lucas Teste",
-      "email": "test1@test.com",
-      "password": "25f9e794323b453885f5181f1b624d0b",
-      "role": "admin"
-    })
+    expect(status).to.be.eq(201)
   })
 
   it('Testando se não passar um token retorna uma mensagem de erro', async () => {
@@ -147,10 +140,9 @@ describe('Testando as rotas de registro', () => {
   })
 
   it('Testando se cria um user seller corretamente', async () => {
-    sinon
-      .stub(userService, "adminCreateUser")
-      .resolves({
-        "id": 6,
+    sinon.stub(User, "create").
+      resolves({
+        "id": 8,
         "name": "Teste Teste Lucas",
         "email": "lucastest@test.com",
         "password": "25f9e794323b453885f5181f1b624d0b",
@@ -168,6 +160,71 @@ describe('Testando as rotas de registro', () => {
           "password": "123456789",
           "role": "seller"
         })
+        .set('authorization', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjc1NDM1MDYzLCJleHAiOjE2NzYwMzk4NjN9.Fc4vr114woz9vylJgcAT0pnxK_tsh8ppJ_cVT4DhDIo")
+    } catch (error) {
+      console.error(error.message)
+    }
+
+    const { status } = postRegister;
+
+    expect(status).to.be.eq(201);
+  })
+
+  it('Testando se retorna um erro se a role não for admin', async () => {
+    let postRegister;
+
+    try {
+      postRegister = await chai.request(app)
+        .post('/admin/manage')
+        .send({
+          "name": "Test Test Lucas",
+          "email": "lucastest@test.com",
+          "password": "123456789",
+          "role": "seller"
+        })
+        .set('authorization', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkZ1bGFuYSBQZXJlaXJhIiwiZW1haWwiOiJmdWxhbmFAZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY3NTM5MjcxNiwiZXhwIjoxNjc1OTk3NTE2fQ.vTx3GH5oY-mOKTs1GurEL54zbZSTzOi-SWiV-YjJqqo")
+    } catch (error) {
+      console.error(error)
+    }
+
+    const { body } = postRegister;
+
+    expect(body.message).to.be.eq("User is not administrator")
+  })
+
+  it('Testando se retorna um erro se ao criar um seller o email ja foi cadastrado', async () => {
+    let postRegister;
+
+    try {
+      postRegister = await chai.request(app)
+        .post('/admin/manage')
+        .send({
+          "name": "Test Test Lucas",
+          "email": "fulana@deliveryapp.com",
+          "password": "123456789",
+          "role": "seller"
+        })
+        .set('authorization', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjc1NDM1MDYzLCJleHAiOjE2NzYwMzk4NjN9.Fc4vr114woz9vylJgcAT0pnxK_tsh8ppJ_cVT4DhDIo")
+    } catch (error) {
+      console.error(error)
+    }
+
+    const { body } = postRegister;
+
+    expect(body.message).to.be.eq("User already exists")
+  })
+
+  it('Testando se retorna um erro se o email já for cadastrado', async () => {
+    let postRegister
+
+    try {
+      postRegister = await chai.request(app)
+        .post('/register')
+        .send({
+          "name": "Teste Teste Lucas",
+          "email": "zebirita@email.com",
+          "password": "123456789",
+        })
         .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjc1MzQ3MDAxLCJleHAiOjE2NzU0MzM0MDF9.tg-4sn6yxmeu85niZKurvFTrDRxIgEBgyzba-L0GZvc')
     } catch (error) {
       console.error(error.message)
@@ -175,12 +232,6 @@ describe('Testando as rotas de registro', () => {
 
     const { body } = postRegister;
 
-    expect(body).to.be.deep.eq({
-      "id": 6,
-      "name": "Teste Teste Lucas",
-      "email": "lucastest@test.com",
-      "password": "25f9e794323b453885f5181f1b624d0b",
-      "role": "seller"
-    });
+    expect(body.message).to.be.eq('User already exists');
   })
 })
