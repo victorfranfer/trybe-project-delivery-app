@@ -42,6 +42,8 @@ export const ClientCheckoutDiv = styled.div`
 `;
 
 export const CheckoutTable = styled.table`
+  width: 100vw;
+  max-width: 1140.14px;
   th {
     font-family: "Roboto";
     font-weight: 400;
