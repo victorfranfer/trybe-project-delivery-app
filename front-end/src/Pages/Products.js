@@ -4,6 +4,7 @@ import Header from '../Components/Header';
 import ProductCard from '../Components/ProductCard';
 import { AppContext } from '../Context/provider';
 import { requestProducts } from '../Services/Request';
+import { CartButton, ProductsSection } from './Styles/products';
 // import { requestToken, setToken } from '../Services/Request';
 // import { getUserInfo } from '../Services/Storage';
 
@@ -45,22 +46,24 @@ export default function Products() {
   return (
     <>
       <Header />
-      <section className="product-list">
+      <ProductsSection className="product-list">
         {productsList.map((product) => (
           <ProductCard product={ product } key={ product.name } />
         ))}
-      </section>
-      <button
-        type="button"
-        disabled={ totalPrice === 0 }
-        onClick={ () => { history.push('/customer/checkout'); } }
-        data-testid="customer_products__button-cart"
-      >
-        Ver Carrinho: R$
-        <p data-testid="customer_products__checkout-bottom-value">
-          {Number(totalPrice).toLocaleString('pt-br', { minimumFractionDigits: 2 })}
-        </p>
-      </button>
+      </ProductsSection>
+      <CartButton>
+        <button
+          type="button"
+          disabled={ totalPrice === 0 }
+          onClick={ () => { history.push('/customer/checkout'); } }
+          data-testid="customer_products__button-cart"
+        >
+          Ver Carrinho: R$
+          <p data-testid="customer_products__checkout-bottom-value">
+            {Number(totalPrice).toLocaleString('pt-br', { minimumFractionDigits: 2 })}
+          </p>
+        </button>
+      </CartButton>
     </>
   );
 }

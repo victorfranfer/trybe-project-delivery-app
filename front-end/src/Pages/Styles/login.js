@@ -55,7 +55,7 @@ export const LoginForm = styled.form`
   }
 `;
 
-export const FilledButton = styled.button`
+export const FilledButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,7 +74,7 @@ export const FilledButton = styled.button`
   width: 370px;
 `;
 
-export const UnfilledButton = styled.button`
+export const UnfilledButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

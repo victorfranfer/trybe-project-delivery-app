@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AppContext } from '../Context/provider';
 import { saveCart } from '../Services/Storage';
+import { ProductCardDiv } from './Styles/productCard';
 
 export default function ProductCard({ product }) {
   const { cart, setCart } = useContext(AppContext);
@@ -110,43 +111,45 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="product-card" key={ product.id }>
+    <ProductCardDiv className="product-card" key={ product.id }>
+      <span data-testid={ `customer_products__element-card-price-${product.id}` }>
+          { Number(product.price)
+            .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
+      </span>
       <img
         src={ product.urlImage }
         alt="product-logo"
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
       />
-      <p data-testid={ `customer_products__element-card-title-${product.id}` }>
-        { product.name }
-      </p>
-      <p data-testid={ `customer_products__element-card-price-${product.id}` }>
-        { Number(product.price)
-          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
-      </p>
-      <div className="quantity-buttons">
-        <button
-          onClick={ removeItem }
-          type="button"
-          data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-        >
-          -
-        </button>
-        <input
-          min="0"
-          value={ quantity }
-          onChange={ updateCart }
-          type="number"
-          data-testid={ `customer_products__input-card-quantity-${product.id}` }
-        />
-        <button
-          onClick={ addTocart }
-          type="button"
-          data-testid={ `customer_products__button-card-add-item-${product.id}` }
-        >
-          +
-        </button>
+      <div>
+        <p data-testid={ `customer_products__element-card-title-${product.id}` }>
+          { product.name }
+        </p>
+        <div className="quantity-buttons">
+          <button
+            onClick={ removeItem }
+            type="button"
+            data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+          >
+            -
+          </button>
+          <input
+            min="0"
+            value={ quantity }
+            onChange={ updateCart }
+            type="number"
+            data-testid={ `customer_products__input-card-quantity-${product.id}` }
+          />
+          <button
+            onClick={ addTocart }
+            type="button"
+            data-testid={ `customer_products__button-card-add-item-${product.id}` }
+          >
+            +
+          </button>
+        </div>
       </div>
-    </div>
+    </ProductCardDiv>
   );
 }
 
