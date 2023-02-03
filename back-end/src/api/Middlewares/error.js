@@ -3,4 +3,5 @@ const error = (err, _req, res, _next) => {
   const message = err.message || 'Erro inesperado. Por favor, tente mais tarde';
   return res.status(status).json({ message });
 };
+
 module.exports = error;

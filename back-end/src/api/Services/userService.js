@@ -7,6 +7,7 @@ const getUserByEmail = async (email) => {
     const err = new Error();
     err.message = 'Email inválido';
     err.status = 400;
+    throw err;
   }
   const user = await User.findOne({ where: { email } });
   if (!user) return null;
@@ -81,7 +82,7 @@ const createUser = async (user) => {
 
   const newUser = await User.create(editUser);
 
-  if (newUser) return newUser.dataValues;
+  return newUser.dataValues;
 };
 
 const adminCreateUser = async (userForCreate, { ...loggedUser }) => {
@@ -107,7 +108,7 @@ const adminCreateUser = async (userForCreate, { ...loggedUser }) => {
 
   const newUser = await User.create(createUserWithoutLoggedUser);
 
-  if (newUser) return newUser.dataValues;
+  return newUser.dataValues;
 };
 
 const deleteUser = async (email) => {
