@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestLogin, setToken } from '../Services/Request';
 import { saveUserInfo, getUserInfo } from '../Services/Storage';
+import beer from '../images/beer.png';
 
 function Login() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -70,7 +71,7 @@ function Login() {
   return (
     <div>
       <div>
-        <img src="" alt="Logo do app" />
+        <img src={ beer } alt="Logo do app" />
       </div>
       <div>
         <form>
