@@ -21,6 +21,15 @@ export default function ProductCard({ product }) {
     updateQuantity();
   }, [cart]);
 
+  // useEffect(() => {
+  //   const updateQuantity = () => {
+  //     if (quantity > 0) {
+  //       setQuantity(0);
+  //     }
+  //   };
+  //   updateQuantity();
+  // }, [quantity]);
+
   const addTocart = () => {
     setQuantity((prev) => prev + 1);
 
@@ -28,7 +37,7 @@ export default function ProductCard({ product }) {
       if (item.productId === product.id) {
         return {
           ...item,
-          quantity: item.quantity + 1,
+          quantity: Number(item.quantity) + 1,
           subTotal: Number((item.subTotal + item.unitPrice).toFixed(2)),
         };
       }
@@ -64,7 +73,7 @@ export default function ProductCard({ product }) {
       if (item.productId === product.id) {
         return {
           ...item,
-          quantity: item.quantity - 1,
+          quantity: Number(item.quantity) - 1,
           subTotal: Number((item.subTotal - item.unitPrice).toFixed(2)),
         };
       }
@@ -85,7 +94,7 @@ export default function ProductCard({ product }) {
       if (item.productId === product.id && target.value > 0) {
         return {
           ...item,
-          quantity: target.value,
+          quantity: Number(target.value),
           subTotal: Number((product.price * target.value).toFixed(2)),
         };
       }
