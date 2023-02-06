@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { getUserInfo } from '../Services/Storage';
+import { getUserInfo, saveUserInfo } from '../Services/Storage';
 
 export default function Header() {
   const { name } = getUserInfo();
@@ -26,7 +26,7 @@ export default function Header() {
       <Link
         data-testid="customer_products__element-navbar-link-logout"
         to="/"
-        onClick={ () => localStorage.clear() }
+        onClick={ () => saveUserInfo({}) }
       >
         SAIR
       </Link>
