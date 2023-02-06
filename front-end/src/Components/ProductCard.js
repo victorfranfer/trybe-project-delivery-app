@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { AppContext } from '../Context/provider';
 import { saveCart } from '../Services/Storage';
 import { ProductCardDiv } from './Styles/productCard';
+import images from '../images';
 
 export default function ProductCard({ product }) {
   const { cart, setCart } = useContext(AppContext);
@@ -117,7 +118,7 @@ export default function ProductCard({ product }) {
             .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
       </span>
       <img
-        src={ product.urlImage }
+        src={ images[product.urlImage] }
         alt="product-logo"
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
       />
