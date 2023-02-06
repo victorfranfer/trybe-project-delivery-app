@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestOrders } from '../Services/Request';
 import { getUserInfo } from '../Services/Storage';
+import { OrderItemDiv, Orders } from './Styles/orderItem';
 
 export default function OrdersItem() {
   const [orderList, setOrderList] = useState([]);
@@ -27,41 +28,45 @@ export default function OrdersItem() {
   }
 
   return (
-    <div className="order-list">
+    <Orders className="order-list">
       {
         orderList.map((element, index) => (
-          <div className="customer-order" key={ index }>
+          <OrderItemDiv status={ element.status } className="customer-order" key={ index }>
             <button
               type="button"
               onClick={ () => history.push(`/customer/orders/${element.id}`) }
             >
-              <div>
-                <span
-                  data-testid={ `customer_orders__element-order-id-${element.id}` }
-                >
+              <div
+                data-testid={ `customer_orders__element-order-id-${element.id}` }
+              >
+                <p>
                   Pedido
+                </p>
+                <p>
                   {element.id}
-                </span>
-                <span
-                  data-testid={ `customer_orders__element-delivery-status-${element.id}` }
-                >
-                  {element.status}
-                </span>
-                <span
+                </p>
+              </div>
+              <span
+                data-testid={ `customer_orders__element-delivery-status-${element.id}` }
+              >
+                {element.status}
+              </span>
+              <div>
+                <p
                   data-testid={ `customer_orders__element-order-date-${element.id}` }
                 >
                   {dataAtualFormatada(element.saleDate)}
-                </span>
-                <span
+                </p>
+                <p
                   data-testid={ `customer_orders__element-card-price-${element.id}` }
                 >
                   {element.totalPrice.replace('.', ',')}
-                </span>
+                </p>
               </div>
             </button>
-          </div>
+          </OrderItemDiv>
         ))
       }
-    </div>
+    </Orders>
   );
 }

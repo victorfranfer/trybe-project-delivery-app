@@ -56,6 +56,9 @@ export const OrderSection = styled.section`
         font-size: 18px;
         text-align: center;
         color: #f2fffc;
+        :disabled {
+          background-color: gray;
+        }
       }
     }
   }

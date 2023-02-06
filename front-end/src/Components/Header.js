@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { getUserInfo } from '../Services/Storage';
+import { getUserInfo, saveUserInfo } from '../Services/Storage';
 import { HeaderNav, NavLink } from './Styles/header'
 
 export default function Header() {
@@ -37,7 +37,7 @@ export default function Header() {
         <Link
           data-testid="customer_products__element-navbar-link-logout"
           to="/"
-          onClick={ () => localStorage.clear() }
+          onClick={ () => saveUserInfo({}) }
         >
           <NavLink color="#056CF9" sair={ true }>
             SAIR

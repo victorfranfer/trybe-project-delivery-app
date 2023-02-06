@@ -1,7 +1,16 @@
 import axios from 'axios';
 
+
+const HOST = process.env.REACT_APP_API_HOST || "localhost:3001";
+const PROTOCOL = process.env.REACT_APP_API_PROTOCOL || "http";
+
 const api = axios.create({
-  baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
+  baseURL: `${PROTOCOL}://${HOST}`,
+  timeout: 10000,
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
 });
 
 export const get = async (endpoint) => {
@@ -39,8 +48,8 @@ export const createNewSale = async (endpoint, body) => {
   return data;
 };
 
-export const getProductSale = async (endpoint, params) => {
-  const { data } = await api.get(endpoint, params);
+export const getProductSale = async (endpoint) => {
+  const { data } = await api.get(endpoint);
   return data;
 };
 

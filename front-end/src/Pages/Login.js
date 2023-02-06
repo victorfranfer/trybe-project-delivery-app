@@ -51,6 +51,7 @@ function Login() {
       const minLengthPassword = 6;
 
       const userInfo = getUserInfo();
+      console.log(userInfo);
 
       if (userInfo.token) {
         if (userInfo.role === 'customer') {

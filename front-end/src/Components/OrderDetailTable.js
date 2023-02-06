@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { CheckoutTable, TableColumn } from '../Pages/Styles/clientCheckout';
 
 export default function OrderDetailTable({ product, index }) {
+  console.log(product);
   return (
         <tr>
           <TableColumn
