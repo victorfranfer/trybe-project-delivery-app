@@ -119,6 +119,14 @@ const deleteUser = async (email) => {
   return users;
 };
 
+const deleteUser = async (email) => {
+  await User.destroy({ where: { email } });
+
+  const users = getAllUsers();
+
+  return users;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,

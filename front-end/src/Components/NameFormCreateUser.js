@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { AdminContext } from '../Context/AdminContex';
+import { AdminNameForm } from '../Pages/Styles/admin';
 
 export default function NameFormCreateUser() {
   const { createUserError } = useContext(AdminContext);
 
   return (
-    <section>
+    <AdminNameForm>
       <h2>Cadastrar novo usuário</h2>
       {
         createUserError && (
@@ -16,6 +17,6 @@ export default function NameFormCreateUser() {
           </span>
         )
       }
-    </section>
+    </AdminNameForm>
   );
 }

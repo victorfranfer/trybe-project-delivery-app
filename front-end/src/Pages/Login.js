@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestLogin, setToken } from '../Services/Request';
+import { LoginForm, FilledButton, UnfilledButton, LoginPage } from './Styles/login';
 import { saveUserInfo, getUserInfo } from '../Services/Storage';
 import beer from '../images/beer.png';
 
@@ -50,6 +51,7 @@ function Login() {
       const minLengthPassword = 6;
 
       const userInfo = getUserInfo();
+      console.log(userInfo);
 
       if (userInfo.token) {
         if (userInfo.role === 'customer') {
@@ -69,14 +71,14 @@ function Login() {
   }, [data]);
 
   return (
-    <div>
+    <LoginPage>
       <div>
         <img src={ beer } alt="Logo do app" />
       </div>
       <div>
-        <form>
+        <LoginForm>
           <label htmlFor="email">
-            Login:
+            Login
             <input
               type="email"
               name="email"
@@ -93,23 +95,26 @@ function Login() {
               onChange={ handleChange }
             />
           </label>
-
           <button
             type="button"
             data-testid="common_login__button-login"
             disabled={ disable }
             onClick={ HandleClick }
           >
-            LOGIN
+            <FilledButton>
+              LOGIN
+            </FilledButton>
           </button>
           <button
             type="button"
             data-testid="common_login__button-register"
             onClick={ () => navigate.push('/register') }
           >
-            Ainda não tenho conta
+            <UnfilledButton>
+              Ainda não tenho conta
+            </UnfilledButton>
           </button>
-        </form>
+        </LoginForm>
       </div>
       {
         loginError && (
@@ -120,7 +125,7 @@ function Login() {
           </div>
         )
       }
-    </div>
+    </LoginPage>
   );
 }
 

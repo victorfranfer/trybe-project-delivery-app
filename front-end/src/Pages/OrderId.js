@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import OrderDetailTable from '../Components/OrderDetailTable';
 import { get, put } from '../Services/Request';
+import { CheckoutTable } from './Styles/clientCheckout';
+import { OrderSection } from './Styles/orderId';
 
 function OrderId() {
   const { id } = useParams();
@@ -46,8 +48,10 @@ function OrderId() {
   return (
     <>
       <Header />
-      <section>
-        <p>Detalhes do pedido</p>
+      <OrderSection>
+        <div>
+          <p>Detalhes do pedido</p>
+        </div>
         <div>
           <div>
             <p data-testid="customer_order_details__element-order-details-label-order-id">
@@ -81,25 +85,41 @@ function OrderId() {
               MARCAR COMO ENTREGUE
             </button>
           </div>
-          {
-            order.products.map((product, index) => (
-              <OrderDetailTable
-                key={ `${product.name}-${index}` }
-                product={ product }
-                index={ index }
-              />
-            ))
-          }
+          <CheckoutTable>
+            <colgroup span="5" className="columns" />
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Descrição</th>
+                  <th>Quantidade</th>
+                  <th>Valor unitário</th>
+                  <th>Sub-total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  order.products.map((product, index) => (
+                    <OrderDetailTable
+                      key={ `${product.name}-${index}` }
+                      product={ product }
+                      index={ index }
+                    />
+                  ))
+                }
+              </tbody>
+          </CheckoutTable>
         </div>
-        <p data-testid="customer_order_details__element-order-total-price">
-          Total:
-          {' '}
-          {Number(order.totalPrice).toLocaleString('pt-br', {
-            style: 'currency',
-            currency: 'BRL',
-          })}
-        </p>
-      </section>
+        <div>
+          <span data-testid="customer_order_details__element-order-total-price">
+            Total:
+            {' '}
+            {Number(order.totalPrice).toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </span>
+        </div>
+      </OrderSection>
     </>
   );
 }

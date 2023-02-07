@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { requestAdminRegister } from '../Services/Request';
 import { getUserInfo } from '../Services/Storage';
 import { AdminContext } from '../Context/AdminContex';
+import { AdminContainer, AdminForm } from '../Pages/Styles/admin';
 
 export default function FormCreateUser() {
   const [data, setData] = useState({
@@ -53,8 +54,8 @@ export default function FormCreateUser() {
   };
 
   return (
-    <section>
-      <form>
+    <AdminContainer>
+      <AdminForm>
         <label htmlFor="admin-nome">
           Nome Completo
           <input
@@ -102,7 +103,7 @@ export default function FormCreateUser() {
         >
           CADASTRAR
         </button>
-      </form>
-    </section>
+      </AdminForm>
+    </AdminContainer>
   );
 }
