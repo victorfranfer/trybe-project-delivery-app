@@ -24,4 +24,4 @@ module.exports = {
   skol_lata_350ml,
   stella_artois_275ml,
   heineken_600ml,
-}
+};

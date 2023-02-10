@@ -87,26 +87,26 @@ function OrderId() {
           </div>
           <CheckoutTable>
             <colgroup span="5" className="columns" />
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Descrição</th>
-                  <th>Quantidade</th>
-                  <th>Valor unitário</th>
-                  <th>Sub-total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  order.products.map((product, index) => (
-                    <OrderDetailTable
-                      key={ `${product.name}-${index}` }
-                      product={ product }
-                      index={ index }
-                    />
-                  ))
-                }
-              </tbody>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Valor unitário</th>
+                <th>Sub-total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                order.products.map((product, index) => (
+                  <OrderDetailTable
+                    key={ `${product.name}-${index}` }
+                    product={ product }
+                    index={ index }
+                  />
+                ))
+              }
+            </tbody>
           </CheckoutTable>
         </div>
         <div>

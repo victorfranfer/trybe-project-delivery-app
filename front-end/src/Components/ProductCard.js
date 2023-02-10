@@ -123,8 +123,8 @@ export default function ProductCard({ product }) {
   return (
     <ProductCardDiv className="product-card" key={ product.id }>
       <span data-testid={ `customer_products__element-card-price-${product.id}` }>
-          { Number(product.price)
-            .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
+        { Number(product.price)
+          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
       </span>
       <img
         src={ images[product.urlImage] }

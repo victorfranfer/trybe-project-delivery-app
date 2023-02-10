@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const OrderItemDiv = styled.div`
   background: #eaf1ef;
@@ -16,14 +16,14 @@ export const OrderItemDiv = styled.div`
     justify-content: space-around;
     & > span {
       background: ${(props) => {
-        if (props.status === "Pendente") {
-          return "rgba(204, 184, 0, 0.75)";
-        }
-        if (props.status === "Preparando") {
-          return "rgba(102, 204, 0, 0.75);";
-        }
-        return "rgba(0, 204, 155, 0.75)";
-      }};
+    if (props.status === 'Pendente') {
+      return 'rgba(204, 184, 0, 0.75)';
+    }
+    if (props.status === 'Preparando') {
+      return 'rgba(102, 204, 0, 0.75);';
+    }
+    return 'rgba(0, 204, 155, 0.75)';
+  }};
       border-radius: 10px;
       height: 141px;
       width: 295px;
